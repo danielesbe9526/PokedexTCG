@@ -11,6 +11,18 @@
 		11236ECA29E5ED76003D5D81 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EC929E5ED76003D5D81 /* ContentView.swift */; };
 		11236ECC29E5ED77003D5D81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11236ECB29E5ED77003D5D81 /* Assets.xcassets */; };
 		11236ED029E5ED77003D5D81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11236ECF29E5ED77003D5D81 /* Preview Assets.xcassets */; };
+		11236ED729E5EEEF003D5D81 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236ED629E5EEEF003D5D81 /* Pokemon.swift */; };
+		11236ED929E5F09C003D5D81 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236ED829E5F09C003D5D81 /* APIService.swift */; };
+		11236EDD29E5F3A2003D5D81 /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EDC29E5F3A2003D5D81 /* PokemonListViewModel.swift */; };
+		11236EDF29E6111A003D5D81 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EDE29E6111A003D5D81 /* PokemonDetailView.swift */; };
+		11236EE129E616B3003D5D81 /* pokemonMocked.json in Resources */ = {isa = PBXBuildFile; fileRef = 11236EE029E616B3003D5D81 /* pokemonMocked.json */; };
+		11236EE329E64700003D5D81 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EE229E64700003D5D81 /* Card.swift */; };
+		11236EE529E64872003D5D81 /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EE429E64872003D5D81 /* CardsView.swift */; };
+		11236EE829E64FB8003D5D81 /* CardsMocked.json in Resources */ = {isa = PBXBuildFile; fileRef = 11236EE729E64FB8003D5D81 /* CardsMocked.json */; };
+		11236EEA29E70E0D003D5D81 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EE929E70E0D003D5D81 /* CardDetail.swift */; };
+		11236EEC29E70F7F003D5D81 /* CardMocked.json in Resources */ = {isa = PBXBuildFile; fileRef = 11236EEB29E70F7F003D5D81 /* CardMocked.json */; };
+		11236EEE29E7114A003D5D81 /* PokemonTGCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */; };
+		11236EF029E73765003D5D81 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EEF29E73765003D5D81 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +32,18 @@
 		11236ECB29E5ED77003D5D81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11236ECD29E5ED77003D5D81 /* PokedexPTC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PokedexPTC.entitlements; sourceTree = "<group>"; };
 		11236ECF29E5ED77003D5D81 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		11236ED629E5EEEF003D5D81 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		11236ED829E5F09C003D5D81 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		11236EDC29E5F3A2003D5D81 /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
+		11236EDE29E6111A003D5D81 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
+		11236EE029E616B3003D5D81 /* pokemonMocked.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokemonMocked.json; sourceTree = SOURCE_ROOT; };
+		11236EE229E64700003D5D81 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		11236EE429E64872003D5D81 /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
+		11236EE729E64FB8003D5D81 /* CardsMocked.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardsMocked.json; sourceTree = SOURCE_ROOT; };
+		11236EE929E70E0D003D5D81 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
+		11236EEB29E70F7F003D5D81 /* CardMocked.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardMocked.json; sourceTree = SOURCE_ROOT; };
+		11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTGCViewModel.swift; sourceTree = "<group>"; };
+		11236EEF29E73765003D5D81 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +77,21 @@
 			isa = PBXGroup;
 			children = (
 				11236EC729E5ED76003D5D81 /* PokedexPTCApp.swift */,
+				11236EDB29E5F0BC003D5D81 /* Service */,
+				11236EDA29E5F0B2003D5D81 /* Model */,
+				11236ED829E5F09C003D5D81 /* APIService.swift */,
+				11236EDC29E5F3A2003D5D81 /* PokemonListViewModel.swift */,
+				11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */,
 				11236EC929E5ED76003D5D81 /* ContentView.swift */,
+				11236EDE29E6111A003D5D81 /* PokemonDetailView.swift */,
+				11236EE429E64872003D5D81 /* CardsView.swift */,
+				11236EE929E70E0D003D5D81 /* CardDetail.swift */,
 				11236ECB29E5ED77003D5D81 /* Assets.xcassets */,
+				11236EEF29E73765003D5D81 /* Utils.swift */,
 				11236ECD29E5ED77003D5D81 /* PokedexPTC.entitlements */,
+				11236EE029E616B3003D5D81 /* pokemonMocked.json */,
+				11236EE729E64FB8003D5D81 /* CardsMocked.json */,
+				11236EEB29E70F7F003D5D81 /* CardMocked.json */,
 				11236ECE29E5ED77003D5D81 /* Preview Content */,
 			);
 			path = PokedexPTC;
@@ -67,6 +103,22 @@
 				11236ECF29E5ED77003D5D81 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		11236EDA29E5F0B2003D5D81 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11236ED629E5EEEF003D5D81 /* Pokemon.swift */,
+				11236EE229E64700003D5D81 /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		11236EDB29E5F0BC003D5D81 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,8 +179,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11236EE829E64FB8003D5D81 /* CardsMocked.json in Resources */,
+				11236EE129E616B3003D5D81 /* pokemonMocked.json in Resources */,
 				11236ED029E5ED77003D5D81 /* Preview Assets.xcassets in Resources */,
 				11236ECC29E5ED77003D5D81 /* Assets.xcassets in Resources */,
+				11236EEC29E70F7F003D5D81 /* CardMocked.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +194,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11236ED929E5F09C003D5D81 /* APIService.swift in Sources */,
 				11236ECA29E5ED76003D5D81 /* ContentView.swift in Sources */,
+				11236EE329E64700003D5D81 /* Card.swift in Sources */,
+				11236EE529E64872003D5D81 /* CardsView.swift in Sources */,
 				11236EC829E5ED76003D5D81 /* PokedexPTCApp.swift in Sources */,
+				11236EDD29E5F3A2003D5D81 /* PokemonListViewModel.swift in Sources */,
+				11236ED729E5EEEF003D5D81 /* Pokemon.swift in Sources */,
+				11236EF029E73765003D5D81 /* Utils.swift in Sources */,
+				11236EEE29E7114A003D5D81 /* PokemonTGCViewModel.swift in Sources */,
+				11236EDF29E6111A003D5D81 /* PokemonDetailView.swift in Sources */,
+				11236EEA29E70E0D003D5D81 /* CardDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
