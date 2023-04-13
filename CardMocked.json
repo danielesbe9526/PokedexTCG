@@ -1,0 +1,123 @@
+{
+      "id": "pl3-1",
+      "name": "Absol G",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "SP"
+      ],
+      "level": "59",
+      "hp": "70",
+      "types": [
+        "Darkness"
+      ],
+      "attacks": [
+        {
+          "name": "Feint Attack",
+          "cost": [
+            "Darkness"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Choose 1 of your opponent's Pokémon. This attack does 20 damage to that Pokémon. This attack's damage isn't affected by Weakness, Resistance, Poké-Powers, Poké-Bodies, or any other effects on that Pokémon."
+        },
+        {
+          "name": "Doom News",
+          "cost": [
+            "Darkness",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "",
+          "text": "Return all Energy cards attached to Absol G to your hand. The Defending Pokémon is Knocked Out at the end of your opponent's next turn."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "resistances": [
+        {
+          "type": "Psychic",
+          "value": "-20"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "convertedRetreatCost": 1,
+      "set": {
+        "id": "pl3",
+        "name": "Supreme Victors",
+        "series": "Platinum",
+        "printedTotal": 147,
+        "total": 153,
+        "legalities": {
+          "unlimited": "Legal"
+        },
+        "ptcgoCode": "SV",
+        "releaseDate": "2009/08/19",
+        "updatedAt": "2018/03/07 22:40:00",
+        "images": {
+          "symbol": "https://images.pokemontcg.io/pl3/symbol.png",
+          "logo": "https://images.pokemontcg.io/pl3/logo.png"
+        }
+      },
+      "number": "1",
+      "artist": "Yusuke Ishikawa",
+      "rarity": "Rare Holo",
+      "nationalPokedexNumbers": [
+        359
+      ],
+      "legalities": {
+        "unlimited": "Legal"
+      },
+      "images": {
+        "small": "https://images.pokemontcg.io/pl3/1.png",
+        "large": "https://images.pokemontcg.io/pl3/1_hires.png"
+      },
+      "tcgplayer": {
+        "url": "https://prices.pokemontcg.io/tcgplayer/pl3-1",
+        "updatedAt": "2023/04/12",
+        "prices": {
+          "holofoil": {
+            "low": 1.46,
+            "mid": 4.04,
+            "high": 6,
+            "market": 8.04,
+            "directLow": null
+          },
+          "reverseHolofoil": {
+            "low": 2.49,
+            "mid": 5.99,
+            "high": 12.1,
+            "market": 10.63,
+            "directLow": null
+          }
+        }
+      },
+      "cardmarket": {
+        "url": "https://prices.pokemontcg.io/cardmarket/pl3-1",
+        "updatedAt": "2023/04/12",
+        "prices": {
+          "averageSellPrice": 2.05,
+          "lowPrice": 1.79,
+          "trendPrice": 0.02,
+          "germanProLow": 0,
+          "suggestedPrice": 0,
+          "reverseHoloSell": 9.86,
+          "reverseHoloLow": 1.79,
+          "reverseHoloTrend": 6,
+          "lowPriceExPlus": 3.5,
+          "avg1": 1,
+          "avg7": 5.13,
+          "avg30": 40.18,
+          "reverseHoloAvg1": 15,
+          "reverseHoloAvg7": 6.07,
+          "reverseHoloAvg30": 5.89
+        }
+      }
+    }

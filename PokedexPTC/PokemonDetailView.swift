@@ -17,7 +17,6 @@ struct PokemonDetailView: View {
     
     var body: some View {
         if let pokemon = viewModel.selectedPokemon {
-            NavigationView {
                 VStack {
                     Form {
                         Section("Profile") {
@@ -105,8 +104,8 @@ struct PokemonDetailView: View {
                             }
                         }
                     }
-                }.navigationTitle(pokemon.name)
-            }.navigationBarTitleDisplayMode(.inline)
+                }
+                .navigationTitle(pokemon.name)
         } else {
             ProgressView {
                 Text("Loading")
