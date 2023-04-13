@@ -13,24 +13,20 @@ struct CardsView: View {
     
     var body: some View {
         VStack {
-            ScrollViewReader {_ in
+            ScrollViewReader { _ in
                 LazyVGrid(columns: gridItems) {
                     ForEach(cards, id: \.id) { newCard in
-                        AsyncImage(url: URL(string: newCard.images.small)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                            
-                        } placeholder: {
-                            ProgressView()
-                        }.frame(width: 150, height: 150)
-                            .background {
-                                NavigationLink {
-                                    CardDetail(card: newCard)
-                                } label: {
-                                    EmptyView()
-                                }
-                            }
+                        NavigationLink {
+                            CardDetail(card: newCard)
+                        } label: {
+                            AsyncImage(url: URL(string: newCard.images.small)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                ProgressView()
+                            }.frame(width: 150, height: 150)
+                        }
                     }
                 }
             }
