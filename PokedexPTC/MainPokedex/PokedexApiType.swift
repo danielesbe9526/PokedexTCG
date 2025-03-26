@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol PokedexApiType {
-    func getPokemons(offset: Int) async throws -> Pokemon?
+    func getPokemons(limit: Int, offset: Int) async throws -> Pokemon?
     func getPokemonDetails(id: String) async throws -> PokemonDetail?
 }
 
@@ -19,8 +19,8 @@ public struct PokedexApiCore: PokedexApiType {
         self.apiInteractor = apiInteractor
     }
 
-    public func getPokemons(offset: Int) async throws -> Pokemon? {
-        let request = APIRoute.getPokemons(offset: offset)
+    public func getPokemons(limit: Int, offset: Int) async throws -> Pokemon? {
+        let request = APIRoute.getPokemons(limit: limit, offset: offset)
         let result = try await apiInteractor?.manageRequest(with: request, for: Pokemon.self)
         
         switch result {

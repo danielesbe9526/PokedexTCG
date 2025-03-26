@@ -14,7 +14,8 @@ import Foundation
 // MARK: - Pokemon
 public struct Pokemon: Codable {
     let count: Int
-    let next, previous: String?
+    let next: String?
+    let previous: String?
     let results: [PokemonInfo]
 }
 

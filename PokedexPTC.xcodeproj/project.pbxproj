@@ -108,7 +108,6 @@
 				F89EF1542D9381F700B887F5 /* Networking */,
 				F89EF15E2D9383FD00B887F5 /* PokemonDetail */,
 				F89EF15D2D9383CA00B887F5 /* MainPokedex */,
-				11236EE429E64872003D5D81 /* CardsView.swift */,
 				11236EC729E5ED76003D5D81 /* PokedexPTCApp.swift */,
 				F89EF15F2D938E4A00B887F5 /* Configuration.plist */,
 				11236ECB29E5ED77003D5D81 /* Assets.xcassets */,
@@ -173,6 +172,7 @@
 		F89EF15E2D9383FD00B887F5 /* PokemonDetail */ = {
 			isa = PBXGroup;
 			children = (
+				11236EE429E64872003D5D81 /* CardsView.swift */,
 				11236EE929E70E0D003D5D81 /* CardDetail.swift */,
 				11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */,
 				11236EDE29E6111A003D5D81 /* PokemonDetailView.swift */,
