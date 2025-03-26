@@ -8,7 +8,7 @@
 import Foundation
 
 public enum APIRoute {
-    case getPokemons(offset: Int)
+    case getPokemons(limit: Int, offset: Int)
     case getPokemonDetail(id: String)
     case getPokemonTCG(page: Int, pokemon: String)
 }
@@ -55,10 +55,10 @@ public extension APIRoute {
 public extension APIRoute {
     var queryItems: [URLQueryItem] {
         switch self {
-        case .getPokemons(let offset):
+        case .getPokemons(let limit, let offset):
             return [
                 URLQueryItem(name: "offset", value: "\(offset)"),
-                URLQueryItem(name: "limit", value: "\(20)")
+                URLQueryItem(name: "limit", value: "\(limit)")
             ]
         case .getPokemonDetail:
             return []

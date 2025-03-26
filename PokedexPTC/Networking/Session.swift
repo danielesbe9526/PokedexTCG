@@ -16,7 +16,9 @@ final public class Session: SessionProtocol {
         print(urlRequest.url?.absoluteString ?? "🐛 Bad urlRequest")
         let responseJson = try? JSONSerialization.jsonObject(with: data, options: [])
         if let responseJson = responseJson as? [String: Any] {
-            print("Body Response: \(responseJson)")
+            if urlRequest.url?.pathComponents.last ==  "pokemon" {
+                print("Body Response: \(responseJson)")
+            }
         }
         
         let responseResult: HTTPURLResponse? = response as? HTTPURLResponse

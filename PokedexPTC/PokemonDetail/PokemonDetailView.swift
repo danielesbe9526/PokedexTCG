@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct PokemonDetailView: View {
-    let pokemonInfo: PokemonInfo
-
-    @StateObject var viewModel: PokedexViewModel
-    @StateObject var viewModelTCG: PokemonTGCViewModel
+    @ObservedObject var viewModel: PokedexViewModel
+    @ObservedObject var viewModelTCG: PokemonTGCViewModel
 
     @State var showTGC = false
     
@@ -110,8 +108,6 @@ struct PokemonDetailView: View {
             ProgressView {
                 Text("Loading")
                     .fontWeight(.bold)
-            }.onAppear {
-                viewModel.getPokemonDetail(url: pokemonInfo.url)
             }
 
 //            let pokemon = APIService.shared.mockedPokemon()!
@@ -206,9 +202,8 @@ struct PokemonDetailView: View {
 }
 
 struct PokemonDetailView_Previews: PreviewProvider {
-    //    static var pokemon = APIService.shared.mockedPokemon()!
     static var pokemonSelected = PokemonInfo(id: 1, name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")
     static var previews: some View {
-        PokemonDetailView(pokemonInfo: pokemonSelected, viewModel: PokedexViewModel(apiInteractor: nil, destination: nil), viewModelTCG: PokemonTGCViewModel())
+        PokemonDetailView(viewModel: PokedexViewModel(pokemonsDetails: []), viewModelTCG: PokemonTGCViewModel())
     }
 }
