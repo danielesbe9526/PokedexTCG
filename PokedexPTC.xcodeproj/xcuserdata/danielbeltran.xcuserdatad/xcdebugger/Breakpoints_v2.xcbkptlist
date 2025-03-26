@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "49D2B8E8-4BBA-47E2-B75F-BBBCE04C2706"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5AB07890-EDB5-425B-93A6-E6F642D12758"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexApiType.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getPokemons(offset:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5AB07890-EDB5-425B-93A6-E6F642D12758 - 6dd07566e90d00e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28">
+               </Location>
+               <Location
+                  uuid = "5AB07890-EDB5-425B-93A6-E6F642D12758 - 66bf80cf93745ce1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CBC913DD-43B4-47E6-91AA-2BDBB132D8D1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexApiType.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "getPokemons(offset:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CBC913DD-43B4-47E6-91AA-2BDBB132D8D1 - 6dd07566e90d00a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30">
+               </Location>
+               <Location
+                  uuid = "CBC913DD-43B4-47E6-91AA-2BDBB132D8D1 - 66bf80cf93745ca7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90820838-B23C-44F2-BEC7-0C32097877E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexApiType.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "getPokemons(offset:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "90820838-B23C-44F2-BEC7-0C32097877E5 - 6dd07566e90d007f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+               <Location
+                  uuid = "90820838-B23C-44F2-BEC7-0C32097877E5 - 1aa7d9a246ca944"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+               <Location
+                  uuid = "90820838-B23C-44F2-BEC7-0C32097877E5 - 66bf80cf93745c7d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+               <Location
+                  uuid = "90820838-B23C-44F2-BEC7-0C32097877E5 - 1bedb960365ffa72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+               <Location
+                  uuid = "90820838-B23C-44F2-BEC7-0C32097877E5 - 1bedb960365ffa72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for PokedexPTC.PokedexApiCore.getPokemons(offset: Swift.Int) async throws -&gt; Swift.Optional&lt;PokedexPTC.Pokemon&gt;"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexApiType.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getPokemons()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E - 2ffcb446c1f15802"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35">
+               </Location>
+               <Location
+                  uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E - 400a19173fd47ea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35">
+               </Location>
+               <Location
+                  uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E - 6ad6e6436faaa400"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35">
+               </Location>
+               <Location
+                  uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E - c845c14da2bf460f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35">
+               </Location>
+               <Location
+                  uuid = "27C67D65-2DB9-480F-9302-FDBC5258E08E - c845c14da2bf460f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F5F9D0A7-7C80-43BB-A68C-E4B877036469"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "getPokemons()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27E0A30B-53C4-4C4B-A53C-A2F49AB92CF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/MainPokedex/PokedexViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getPokemons()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "27E0A30B-53C4-4C4B-A53C-A2F49AB92CF6 - 2ffcb446c1f158c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37">
+               </Location>
+               <Location
+                  uuid = "27E0A30B-53C4-4C4B-A53C-A2F49AB92CF6 - 6ad6e6436faaa4c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in PokedexPTC.PokedexViewModel.getPokemons() -&gt; ()"
+                  moduleName = "PokedexPTC.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danielbeltran/Documents/ProyectosXcode/PokedexTCG/PokedexPTC/MainPokedex/PokedexViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8DB72EC1-CBB1-448E-BD8D-32135099DBE8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/APIInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "manageRequest(with:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "882B0875-3C5B-4294-B6E5-74A91643A8B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/Session.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "request(urlRequest:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1A944DFC-3BEC-4167-8918-732426CFBEB2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/Session.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "request(urlRequest:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3F5302E-32CD-429A-815E-4B6B50CE93E7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/Session.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "request(urlRequest:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB12FBB2-B6A5-4CB7-B282-E57EB89F1D2D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/Session.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "request(urlRequest:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BDFA0966-B0D2-416B-9727-3E54086553EC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PokedexPTC/Networking/APIInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "manageRequest(with:for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

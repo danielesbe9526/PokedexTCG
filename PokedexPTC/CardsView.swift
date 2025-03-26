@@ -8,25 +8,24 @@
 import SwiftUI
 
 struct CardsView: View {
-    private let gridItems = [GridItem(.flexible()),GridItem(.flexible())]
-    let cards: [Datum]
+    private let gridItems = [GridItem(.flexible()),GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    var cards: [Datum]?
     
     var body: some View {
-        VStack {
-            ScrollViewReader { _ in
-                LazyVGrid(columns: gridItems) {
-                    ForEach(cards, id: \.id) { newCard in
-                        NavigationLink {
-                            CardDetail(card: newCard)
-                        } label: {
-                            AsyncImage(url: URL(string: newCard.images.small)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            } placeholder: {
-                                ProgressView()
-                            }.frame(width: 150, height: 150)
+        ScrollView {
+            LazyVGrid(columns: gridItems) {
+                ForEach(cards!, id: \.id) { newCard in
+                    NavigationLink {
+                        CardDetail(card: newCard)
+                    } label: {
+                        AsyncImage(url: URL(string: newCard.images.small)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
                         }
+                        .frame(width: 50, height: 70)
                     }
                 }
             }
