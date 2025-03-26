@@ -12,23 +12,24 @@ import Foundation
 import Foundation
 
 // MARK: - Pokemon
-struct Pokemon: Codable {
+public struct Pokemon: Codable {
     let count: Int
     let next, previous: String?
     let results: [PokemonInfo]
 }
 
 // MARK: - Result
-struct PokemonInfo: Codable {
+public struct PokemonInfo: Codable , Identifiable {
+    public var id: Int?
     let name: String
     let url: String
 }
 
 
 // MARK: - PokemonInfo
-struct PokemonDetail: Codable, Identifiable {
+public struct PokemonDetail: Codable, Identifiable {
     let height: Int
-    let id: Int
+    public let id: Int
     let isDefault: Bool
     let name: String
     let order: Int
@@ -53,7 +54,7 @@ struct Species: Codable {
 }
 
 // MARK: - Sprites
-class Sprites: Codable {
+public struct Sprites: Codable {
     let backDefault: String?
     let backFemale: String?
     let backShiny: String?
@@ -63,7 +64,7 @@ class Sprites: Codable {
     let frontShiny: String?
     let frontShinyFemale: String?
     let other: Other?
-    let animated: Sprites?
+//    let animated: Sprites?
 
     enum CodingKeys: String, CodingKey {
         case backDefault = "back_default"
@@ -74,12 +75,13 @@ class Sprites: Codable {
         case frontFemale = "front_female"
         case frontShiny = "front_shiny"
         case frontShinyFemale = "front_shiny_female"
-        case other, animated
+        case other
+//        case animated
     }
 }
 
 // MARK: - OfficialArtwork
-struct OfficialArtwork: Codable {
+public struct OfficialArtwork: Codable {
     let frontDefault, frontShiny: String
 
     enum CodingKeys: String, CodingKey {
@@ -89,7 +91,7 @@ struct OfficialArtwork: Codable {
 }
 
 // MARK: - Home
-struct Home: Codable {
+public struct Home: Codable {
     let frontDefault: String?
     let frontFemale: String?
     let frontShiny: String?
@@ -104,7 +106,7 @@ struct Home: Codable {
 }
 
 // MARK: - DreamWorld
-struct DreamWorld: Codable {
+public struct DreamWorld: Codable {
     let frontDefault: String?
     let frontFemale: String?
 
@@ -115,7 +117,7 @@ struct DreamWorld: Codable {
 }
 
 // MARK: - Other
-struct Other: Codable {
+public struct Other: Codable {
     let dreamWorld: DreamWorld
     let home: Home
     let officialArtwork: OfficialArtwork
@@ -128,7 +130,7 @@ struct Other: Codable {
 }
 
 // MARK: - Stat
-struct Stat: Codable {
+public struct Stat: Codable {
     let baseStat, effort: Int
     let stat: Species
 
@@ -139,7 +141,7 @@ struct Stat: Codable {
 }
 
 // MARK: - TypeElement
-struct TypeElement: Codable {
+public struct TypeElement: Codable {
     let slot: Int
     let type: Species
 }

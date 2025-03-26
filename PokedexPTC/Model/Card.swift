@@ -16,7 +16,8 @@ struct Card: Codable {
 
 // MARK: - Datum
 struct Datum: Codable {
-    let id, name: String
+    let id: String
+    let name: String
     let supertype: String?
     let subtypes: [String]?
     let level: String?
