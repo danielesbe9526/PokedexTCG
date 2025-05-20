@@ -9,6 +9,7 @@ import SwiftUI
 
 public enum ScreenDestination: Hashable, Sendable, Equatable {
     case pokedexMainView
-    case TCGView
-    case pokemonDetailView
+    case pokemonDetailView(pokemon: PokemonDetail)
+//    case cardsTCGView(_ cards: [Datum])
+    case cardDetail(_ card: Datum)
 }

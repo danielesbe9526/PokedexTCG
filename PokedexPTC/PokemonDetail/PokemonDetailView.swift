@@ -12,157 +12,129 @@ struct PokemonDetailView: View {
     @ObservedObject var viewModelTCG: PokemonTGCViewModel
 
     @State var showTGC = false
+    @State var section: PokemonDetailSection = .pokemon
+    
+    let pokemon: PokemonDetail
     
     var body: some View {
-        if let pokemon = viewModel.selectedPokemon {
-                VStack {
-                    Form {
-                        Section("Profile") {
-                            AsyncImage(url: URL(string: (pokemon.sprites?.other?.officialArtwork.frontDefault)!)) { image in
+        VStack {
+            Form {
+                Picker("", selection: $section) {
+                    Text("Pokemon Info")
+                        .tag(PokemonDetailSection.pokemon)
+                    
+                    Text("Cards")
+                        .tag(PokemonDetailSection.tcg)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
+                
+                if section == .pokemon {
+                    Section("Profile") {
+                        if let urlImage = pokemon.sprites?.other?.officialArtwork.frontDefault {
+                            AsyncImage(url: URL(string: urlImage)) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                 
                             } placeholder: {
-                                ProgressView()
+                                ZStack {
+                                    Image(systemName: "photo")
+                                    ProgressView()
+                                }
                             }
                             .frame(width: 300, height: 300)
-                            
-                            HStack {
-                                Text("id:")
-                                    .padding(.horizontal)
-                                Spacer()
-                                Text("\(pokemon.id)")
-                                    .padding(.horizontal)
-                                    .foregroundColor(.secondary)
-                            }
-                            
-                            HStack {
-                                Text("types:")
-                                    .padding(.horizontal)
-                                Spacer()
-                                iconTypeForTag(types: pokemon.types)
-                                    .frame(height: 40)
-                            }
-                            
-                            HStack {
-                                Text("weight:")
-                                    .padding(.horizontal)
-                                Spacer()
-                                Text("\(pokemon.weight)")
-                                    .padding(.horizontal)
-                                    .foregroundColor(.secondary)
-                            }
-                            
-                            HStack {
-                                Text("heigth:")
-                                    .padding(.horizontal)
-                                Spacer()
-                                Text("\(pokemon.height)")
-                                    .padding(.horizontal)
-                                    .foregroundColor(.secondary)
-                            }
                         }
                         
-                        Section("Stats") {
-                            ForEach(pokemon.stats, id: \.stat.name) { stat in
-                                HStack {
-                                    Text("\(stat.stat.name):")
-                                        .padding(.horizontal)
-                                    Spacer()
-                                    Text("\(stat.baseStat)")
-                                        .foregroundColor(.secondary)
-                                        .padding(.horizontal)
-                                }
-                            }
+                        
+                        HStack {
+                            Text("id:")
+                                .padding(.horizontal)
+                            Spacer()
+                            Text("\(pokemon.id)")
+                                .padding(.horizontal)
+                                .foregroundColor(.secondary)
                         }
                         
-                        if let sprites = pokemon.sprites {
-                            imagesSection(sprites: sprites)
+                        HStack {
+                            Text("types:")
+                                .padding(.horizontal)
+                            Spacer()
+                            iconTypeForTag(types: pokemon.types)
+                                .frame(height: 40)
                         }
                         
-                        Button("Show TCG") {
-                            showTGC.toggle()
+                        HStack {
+                            Text("weight:")
+                                .padding(.horizontal)
+                            Spacer()
+                            Text("\(pokemon.weight)")
+                                .padding(.horizontal)
+                                .foregroundColor(.secondary)
                         }
-
-                        if showTGC {
-                            if !viewModelTCG.cards.isEmpty {
-                                pokemonTCGSection(cards: viewModelTCG.cards) {
-                                    viewModelTCG.getTCG(for: pokemon.name)
-                                }.onAppear {
-                                    viewModelTCG.getTCG(for: pokemon.name)
-                                }
-                            } else {
-                                ProgressView {
-                                    Text("Loading")
-                                        .fontWeight(.bold)
-                                }.onAppear {
-                                    viewModelTCG.getTCG(for: pokemon.name)
-                                }
+                        
+                        HStack {
+                            Text("heigth:")
+                                .padding(.horizontal)
+                            Spacer()
+                            Text("\(pokemon.height)")
+                                .padding(.horizontal)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    Section("Stats") {
+                        ForEach(pokemon.stats, id: \.stat.name) { stat in
+                            HStack {
+                                Text("\(stat.stat.name):")
+                                    .padding(.horizontal)
+                                Spacer()
+                                Text("\(stat.baseStat)")
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal)
                             }
                         }
                     }
+                    
+                    if let sprites = pokemon.sprites {
+                        imagesSection(sprites: sprites)
+                    }
+                } else {
+                    CardsView(cards: viewModelTCG.cards, viewModel: viewModel)
                 }
-                .navigationTitle(pokemon.name)
-        } else {
-            ProgressView {
-                Text("Loading")
-                    .fontWeight(.bold)
             }
-
-//            let pokemon = APIService.shared.mockedPokemon()!
-//            let card = APIService.shared.mockedCard()!
-//
-//            VStack {
-//                Form {
-//                    Section("Profile") {
-//                        AsyncImage(url: URL(string: (pokemon.sprites?.other?.officialArtwork.frontDefault)!)) { image in
-//                            image
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//
-//                        } placeholder: {
-//                            Color.gray
-//                        }
-//                        .frame(width: 300, height: 300)
-//
-//                    }
-//
-//                    if let sprites = pokemon.sprites {
-//                        imagesSection(sprites: sprites)
-//                    }
-//
-//
-//                    HStack {
-//                        Text("types:")
-//                            .padding(.horizontal)
-//                        Spacer()
-//                        iconTypeForTag(types: pokemon.types)
-//                    }
-////                    pokemonTCGSection(cards: card) {
-////                        viewModelTCG.getTCG(for: pokemon.name)
-////                    }
-//                }
-//            }
         }
-    }
-}
-
-@ViewBuilder func pokemonTCGSection(cards: [Datum], tapped: (@escaping ()-> Void)) -> some View {
-    Section("POkemon TCG") {
-        CardsView(cards: cards)
-        Button {
-            tapped()
-        } label: {
-            HStack {
-                Text("Load More Cards")
-                Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+        .navigationTitle(pokemon.name)
+        .onAppear {
+            viewModelTCG.cards = []
+            viewModelTCG.getTCG(for: pokemon.name)
+        }
+//        .onDisappear {
+//            viewModelTCG.cards = []
+//        }
+        .sheet(isPresented: $viewModelTCG.requestFails) {
+            withAnimation(.bouncy) {
+                VStack(alignment: .leading, spacing: 15) {
+                    Image(systemName: "exclamationmark.circle")
+                        .font(.largeTitle)
+                        .foregroundStyle(.red)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("No pokemons cards found")
+                        .font(.title2.bold())
+                    
+                    Text("Sorry, we couldn't load the cards at this moment. Please try again later.")
+                        .foregroundStyle(.gray)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(16)
             }
         }
     }
 }
 
-@ViewBuilder func iconTypeForTag(types: [TypeElement]) -> some View {
+@ViewBuilder
+func iconTypeForTag(types: [TypeElement]) -> some View {
     ForEach(types, id: \.type.name) { type in
         if let image = Utils.getTagForType(type: type.type.name) {
             Image(uiImage: image)
@@ -174,7 +146,8 @@ struct PokemonDetailView: View {
     }
 }
 
-@ViewBuilder func imagesSection(sprites: Sprites) -> some View {
+@ViewBuilder
+func imagesSection(sprites: Sprites) -> some View {
     Section("Sprites") {
         HStack {
             spriteImage(url: sprites.frontDefault)
@@ -202,8 +175,55 @@ struct PokemonDetailView: View {
 }
 
 struct PokemonDetailView_Previews: PreviewProvider {
-    static var pokemonSelected = PokemonInfo(id: 1, name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")
+//    https://pokeapi.co/api/v2/pokemon/112
+    static let pokemon1 = PokemonDetail(height: 19,
+                                id: 112,
+                                isDefault: true,
+                                name: "rhydon",
+                                order: 177,
+                                sprites: Sprites(backDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 backFemale: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 backShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/112.png",
+                                                 backShinyFemale: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 frontFemale: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 frontShinyFemale: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/112.png",
+                                                 other: nil),
+                                stats: [
+                                    Stat(baseStat: 105,
+                                         effort: 0,
+                                         stat: Species(name: "hp", url: "https://pokeapi.co/api/v2/stat/1/")),
+                                    Stat(baseStat: 130,
+                                         effort: 2,
+                                         stat: Species(name: "attack", url: "https://pokeapi.co/api/v2/stat/1/")),
+                                    Stat(baseStat: 130,
+                                         effort: 2,
+                                         stat: Species(name: "defense", url: "https://pokeapi.co/api/v2/stat/1/")),
+                                    Stat(baseStat: 130,
+                                         effort: 2,
+                                         stat: Species(name: "special-attack", url: "https://pokeapi.co/api/v2/stat/1/")),
+                                    Stat(baseStat: 130,
+                                         effort: 2,
+                                         stat: Species(name: "special-defense", url: "https://pokeapi.co/api/v2/stat/1/")),
+                                    Stat(baseStat: 130,
+                                         effort: 2,
+                                         stat: Species(name: "speed", url: "https://pokeapi.co/api/v2/stat/1/"))],
+                                types: [
+                                    TypeElement(slot: 1,
+                                                type:
+                                                    Species(name: "ground", url: "https://pokeapi.co/api/v2/type/5/")),
+                                    TypeElement(slot: 2,
+                                                type:
+                                                    Species(name: "rock", url: "https://pokeapi.co/api/v2/type/6/"))],
+                                weight: 123)
+    
     static var previews: some View {
-        PokemonDetailView(viewModel: PokedexViewModel(pokemonsDetails: []), viewModelTCG: PokemonTGCViewModel())
+        PokemonDetailView(viewModel: PokedexViewModel(pokemonsDetails: []), viewModelTCG: PokemonTGCViewModel(), pokemon: pokemon1)
     }
+}
+
+enum PokemonDetailSection {
+    case pokemon
+    case tcg
 }

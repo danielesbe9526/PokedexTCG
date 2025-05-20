@@ -15,23 +15,23 @@ struct Card: Codable {
 }
 
 // MARK: - Datum
-struct Datum: Codable {
-    let id: String
+public struct Datum: Codable, Hashable, Equatable, Sendable, Identifiable {
+    public let id = UUID()
     let name: String
     let supertype: String?
     let subtypes: [String]?
     let level: String?
     let hp: String?
-    let types: [String]
+    let types: [String]?
     let attacks: [Attack]?
     let weaknesses, resistances: [Resistance]?
     let retreatCost: [String]?
     let convertedRetreatCost: Int?
-    let datumSet: DatumSet
-    let number, artist: String
+    let datumSet: DatumSet?
+    let number, artist: String?
     let rarity: String?
-    let nationalPokedexNumbers: [Int]
-    let legalities: Legalities
+    let nationalPokedexNumbers: [Int]?
+    let legalities: Legalities?
     let images: DatumImages
     let tcgplayer: Tcgplayer?
     let cardmarket: Cardmarket?
@@ -50,12 +50,12 @@ struct Datum: Codable {
 }
 
 // MARK: - Ability
-struct Ability: Codable {
+struct Ability: Codable, Hashable, Equatable, Sendable {
     let name, text: String
     let type: TypeEnum
 }
 
-enum TypeEnum: String, Codable {
+enum TypeEnum: String, Codable, Hashable, Equatable, Sendable{
     case ability = "Ability"
     case pokéBody = "Poké-Body"
     case pokéPower = "Poké-Power"
@@ -63,47 +63,48 @@ enum TypeEnum: String, Codable {
 }
 
 // MARK: - Attack
-struct Attack: Codable {
+struct Attack: Codable, Hashable, Equatable, Sendable{
     let name: String
     let cost: [String]
     let convertedEnergyCost: Int
     let damage, text: String
 }
 
+
 // MARK: - Cardmarket
-struct Cardmarket: Codable {
+struct Cardmarket: Codable, Hashable, Equatable, Sendable {
     let url: String
     let updatedAt: String
-    let prices: [String: Double]
+    let prices: [String: Double]?
 }
 
 // MARK: - datumSet
-struct DatumSet: Codable {
+struct DatumSet: Codable, Hashable, Equatable, Sendable {
     let id, name: String
-    let series: Series
+    let series: Series?
     let printedTotal, total: Int
-    let legalities: Legalities
+    let legalities: Legalities?
     let ptcgoCode: String?
     let releaseDate, updatedAt: String
     let images: SetImages
 }
 
 // MARK: - SetImages
-struct SetImages: Codable {
+struct SetImages: Codable, Hashable, Equatable, Sendable {
     let symbol, logo: String
 }
 
 // MARK: - Legalities
-struct Legalities: Codable {
-    let unlimited: Expanded
+struct Legalities: Codable, Hashable, Equatable, Sendable {
+    let unlimited: Expanded?
     let expanded, standard: Expanded?
 }
 
-enum Expanded: String, Codable {
+enum Expanded: String, Codable, Hashable, Equatable, Sendable {
     case legal = "Legal"
 }
 
-enum Series: String, Codable {
+enum Series: String, Codable, Hashable, Equatable, Sendable {
     case base = "Base"
     case blackWhite = "Black & White"
     case diamondPearl = "Diamond & Pearl"
@@ -118,29 +119,30 @@ enum Series: String, Codable {
     case sunMoon = "Sun & Moon"
     case swordShield = "Sword & Shield"
     case xy = "XY"
+    case scarletViolet = "Scarlet & Violet"
 }
 
 // MARK: - DatumImages
-struct DatumImages: Codable {
+struct DatumImages: Codable, Hashable, Equatable, Sendable {
     let small, large: String
 }
 
 // MARK: - Resistance
-struct Resistance: Codable {
+struct Resistance: Codable, Hashable, Equatable, Sendable {
     let type: String
     let value: String
 }
 
 
 // MARK: - Tcgplayer
-struct Tcgplayer: Codable {
+struct Tcgplayer: Codable, Hashable, Equatable, Sendable {
     let url: String
     let updatedAt: String
-    let prices: Prices
+    let prices: Prices?
 }
 
 // MARK: - Prices
-struct Prices: Codable {
+struct Prices: Codable, Hashable, Equatable, Sendable {
     let holofoil, reverseHolofoil, normal, the1StEditionHolofoil: The1_StEditionHolofoil?
     let unlimitedHolofoil: The1_StEditionHolofoil?
 
@@ -152,7 +154,7 @@ struct Prices: Codable {
 }
 
 // MARK: - The1_StEditionHolofoil
-struct The1_StEditionHolofoil: Codable {
+struct The1_StEditionHolofoil: Codable, Hashable, Equatable, Sendable {
     let low, mid, high: Double
     let market, directLow: Double?
 }

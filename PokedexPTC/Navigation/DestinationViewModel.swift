@@ -8,7 +8,8 @@
 import Foundation
 
 final public class DestinationViewModel: ObservableObject {
-    @MainActor @Published public var destination: [ScreenDestination]
+    @MainActor
+    @Published public var destination: [ScreenDestination]
     
     @MainActor
     public var isNavigationEmpty: Bool {

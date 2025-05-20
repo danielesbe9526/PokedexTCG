@@ -11,7 +11,6 @@ import Combine
 class PokemonTGCViewModel: ObservableObject {
     @Published var requestFails = false
     @Published var cards: [Datum] = []
-    @Published var card: Card? = nil
     
     var nextUrl: String = ""
     var previous: String = ""
@@ -35,8 +34,6 @@ class PokemonTGCViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] returnedCards in
                 guard let strongSelf = self else { return }
-                strongSelf.currentPage += 1
-//                strongSelf.card = returnedCards
                 strongSelf.cards.append(contentsOf: returnedCards.data)
             })
     }
