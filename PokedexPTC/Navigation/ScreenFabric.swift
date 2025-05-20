@@ -26,11 +26,14 @@ struct ScreenFabric {
         switch item {
         case .pokedexMainView:
             ContentView(viewModel: pokedexViewModel)
-        case .pokemonDetailView:
+        case .pokemonDetailView(let pokemon):
             PokemonDetailView(viewModel: pokedexViewModel,
-                              viewModelTCG: pokemonTGCViewModel)
-        case .TCGView:
-            CardsView()
+                              viewModelTCG: pokemonTGCViewModel,
+                              pokemon: pokemon)
+//        case .cardsTCGView(let cards):
+//            CardsView(cards: cards, viewModel: pokedexViewModel)
+        case .cardDetail(let card):
+            CardDetail(card: card)
         }
     }
 }

@@ -23,6 +23,7 @@
 		11236EEC29E70F7F003D5D81 /* CardMocked.json in Resources */ = {isa = PBXBuildFile; fileRef = 11236EEB29E70F7F003D5D81 /* CardMocked.json */; };
 		11236EEE29E7114A003D5D81 /* PokemonTGCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */; };
 		11236EF029E73765003D5D81 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11236EEF29E73765003D5D81 /* Utils.swift */; };
+		F81262B72D99F9C900C04F17 /* CustomAlertDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81262B62D99F9C900C04F17 /* CustomAlertDrawer.swift */; };
 		F89EF1512D9381A000B887F5 /* ScreenFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89EF1502D9381A000B887F5 /* ScreenFabric.swift */; };
 		F89EF1522D9381A000B887F5 /* DestinationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89EF14E2D9381A000B887F5 /* DestinationViewModel.swift */; };
 		F89EF1532D9381A000B887F5 /* ScreenDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89EF14F2D9381A000B887F5 /* ScreenDestination.swift */; };
@@ -57,6 +58,7 @@
 		11236EEB29E70F7F003D5D81 /* CardMocked.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CardMocked.json; sourceTree = SOURCE_ROOT; };
 		11236EED29E7114A003D5D81 /* PokemonTGCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTGCViewModel.swift; sourceTree = "<group>"; };
 		11236EEF29E73765003D5D81 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F81262B62D99F9C900C04F17 /* CustomAlertDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertDrawer.swift; sourceTree = "<group>"; };
 		F89EF14E2D9381A000B887F5 /* DestinationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationViewModel.swift; sourceTree = "<group>"; };
 		F89EF14F2D9381A000B887F5 /* ScreenDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenDestination.swift; sourceTree = "<group>"; };
 		F89EF1502D9381A000B887F5 /* ScreenFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFabric.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				F89EF1632D93907A00B887F5 /* CardView.swift */,
 				F89EF1642D93907A00B887F5 /* Alert.swift */,
 				F89EF1652D93907A00B887F5 /* AlertModel.swift */,
+				F81262B62D99F9C900C04F17 /* CustomAlertDrawer.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				F89EF16B2D93907A00B887F5 /* ViewWrapper.swift in Sources */,
 				F89EF1512D9381A000B887F5 /* ScreenFabric.swift in Sources */,
 				F89EF16D2D93944C00B887F5 /* PokedexApiType.swift in Sources */,
+				F81262B72D99F9C900C04F17 /* CustomAlertDrawer.swift in Sources */,
 				F89EF1522D9381A000B887F5 /* DestinationViewModel.swift in Sources */,
 				F89EF1532D9381A000B887F5 /* ScreenDestination.swift in Sources */,
 				11236EE529E64872003D5D81 /* CardsView.swift in Sources */,
@@ -427,7 +431,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -435,7 +439,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = daniel.beltran.PokedexPTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -465,7 +470,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -473,7 +478,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = daniel.beltran.PokedexPTC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -12,6 +12,7 @@ struct CardDetail: View {
     
     var body: some View {
         VStack {
+            
             Form {
                 VStack {
                     AsyncImage(url: URL(string: card.images.small)) { image in
@@ -28,10 +29,12 @@ struct CardDetail: View {
                         Text("id: \(card.id)")
                             .font(.system(size: 12,weight: .thin, design: .rounded))
                             .padding(.horizontal)
-                        
-                        Text("\(card.number)/\(card.datumSet.printedTotal)")
-                            .font(.system(size: 12,weight: .thin, design: .rounded))
-                            .padding(.horizontal)
+                        if let number = card.number,
+                           let printed = card.datumSet?.printedTotal {
+                            Text("\(number)/\(printed)")
+                                .font(.system(size: 12,weight: .thin, design: .rounded))
+                                .padding(.horizontal)
+                        }
                     }
                 }
                 
@@ -49,145 +52,17 @@ struct CardDetail: View {
                         Spacer()
                         Text("HP \(card.hp ?? "")")
                             .font(.system(size: 18, design: .monospaced))
-                        iconType(types: card.types)
-                            .padding()
-                    }
-                }
-                
-                Section("Prices") {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text("From TCGplayer")
-                                .font(.system(size: 24,weight: .semibold))
-                                .padding(.vertical)
-                            Spacer()
+                        
+                        if let types = card.types {
+                            iconType(types: types)
+                                .padding()
                         }
-                        
-                        // HOLOFOILD
-                        VStack {
-                            Text("HoloFoild")
-                                .font(.system(size: 16, weight: .none, design: .none))
-                            HStack {
-                                VStack {
-                                    Text("Market")
-                                        .font(.system(size: 14, weight: .light, design: .monospaced))
-                                    Text("$\(card.tcgplayer?.prices.holofoil?.market ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.secondary)
-                                        .font(.system(size: 16, weight: .light, design: .monospaced))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("low")
-                                        .font(.system(size: 14, weight: .light, design: .monospaced))
-                                    Text("$\(card.tcgplayer?.prices.holofoil?.low ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.red)
-                                        .font(.system(size: 16, weight: .light, design: .monospaced))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("Mid")
-                                        .font(.system(size: 14, weight: .light, design: .monospaced))
-                                    Text("$\(card.tcgplayer?.prices.holofoil?.mid ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.blue)
-                                        .font(.system(size: 16, weight: .light, design: .monospaced))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("High")
-                                        .font(.system(size: 14, weight: .light, design: .monospaced))
-                                    Text("$\(card.tcgplayer?.prices.holofoil?.high ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.green)
-                                        .font(.system(size: 16, weight: .light, design: .monospaced))
-                                }
-                            }
-                        }.padding()
-                        
-                        // Reversed HoloFoild
-                        VStack {
-                            Text("Reverse HoloFoild")
-                                .font(.system(size: 16, weight: .none, design: .none))
-                            
-                            HStack {
-                                VStack {
-                                    Text("Market")
-                                        .font(.system(size: 14, weight: .light, design: .none))
-                                    
-                                    Text("$\(card.tcgplayer?.prices.reverseHolofoil?.market ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.secondary)
-                                        .font(.system(size: 16, weight: .light, design: .none))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("low")
-                                        .font(.system(size: 14, weight: .light, design: .none))
-                                    Text("$\(card.tcgplayer?.prices.reverseHolofoil?.low ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.red)
-                                        .font(.system(size: 16, weight: .light, design: .none))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("Mid")
-                                        .font(.system(size: 14, weight: .light, design: .none))
-                                    Text("$\(card.tcgplayer?.prices.reverseHolofoil?.mid ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.blue)
-                                        .font(.system(size: 16, weight: .light, design: .none))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("High")
-                                        .font(.system(size: 14, weight: .light, design: .none))
-                                    Text("$\(card.tcgplayer?.prices.reverseHolofoil?.high ?? 0.0 , specifier: "%.2f")")
-                                        .foregroundColor(.green)
-                                        .font(.system(size: 16, weight: .light, design: .none))
-                                }
-                            }
-                        }.padding()
-                        
-                        VStack {
-                            Text("From CardMarket")
-                                .font(.system(size: 16, weight: .none, design: .none))
-                            
-                            VStack {
-                                HStack {
-                                    VStack {
-                                        Text("Price Trend")
-                                            .font(.system(size: 14, weight: .light, design: .monospaced))
-                                        Text("\(card.cardmarket?.prices["averageSellPrice"] ?? 0.0, specifier: "%.2f")€")
-                                            .foregroundColor(.brown)
-                                            .font(.system(size: 16, weight: .light, design: .monospaced))
-                                        
-                                    }
-                                    Spacer()
-                                    VStack {
-                                        Text("1 avg")
-                                            .font(.system(size: 14, weight: .light, design: .monospaced))
-                                        Text("\(card.cardmarket?.prices["avg1"] ?? 0.0, specifier: "%.2f")€")
-                                            .foregroundColor(.brown)
-                                            .font(.system(size: 16, weight: .light, design: .monospaced))
-                                    }
-                                    Spacer()
-                                    VStack {
-                                        Text("7 avg")
-                                            .font(.system(size: 14, weight: .light, design: .monospaced))
-                                        Text("\(card.cardmarket?.prices["avg7"] ?? 0.0, specifier: "%.2f")€")
-                                            .foregroundColor(.brown)
-                                            .font(.system(size: 16, weight: .light, design: .monospaced))
-                                    }
-                                    Spacer()
-                                    VStack {
-                                        Text("30 avg")
-                                            .font(.system(size: 14, weight: .light, design: .monospaced))
-                                        Text("\(card.cardmarket?.prices["avg30"] ?? 0.0, specifier: "%.2f")€")
-                                            .foregroundColor(.brown)
-                                            .font(.system(size: 16, weight: .light, design: .monospaced))
-                                    }
-                                }
-                            }
-                        }.padding()
                     }
-                    
                 }
+                if let prices = card.tcgplayer?.prices {
+                    pricesSection(prices)
+                }
+               
                 
                 Section("Attacks") {
                     if let attacks = card.attacks {
@@ -240,10 +115,11 @@ struct CardDetail: View {
                     VStack {
                         Text("ARTIST")
                             .font(.system(size: 14, weight: .ultraLight, design: .monospaced))
-                        
-                        Text(card.artist)
-                            .font(.system(size: 12, weight: .ultraLight, design: .monospaced))
-                            .foregroundColor(.secondary)
+                        if let artist = card.artist {
+                            Text(artist)
+                                .font(.system(size: 12, weight: .ultraLight, design: .monospaced))
+                                .foregroundColor(.secondary)
+                        }
                     }
                     Spacer()
                     VStack {
@@ -255,19 +131,160 @@ struct CardDetail: View {
                     }
                     Spacer()
                     VStack {
-                        Text("SET")
-                            .font(.system(size: 14, weight: .ultraLight, design: .monospaced))
-                        Text(card.datumSet.name)
-                            .font(.system(size: 12, weight: .ultraLight, design: .monospaced))
-                            .foregroundColor(.secondary)
+                        if let set = card.datumSet?.name {
+                            Text("SET")
+                                .font(.system(size: 14, weight: .ultraLight, design: .monospaced))
+                            Text(set)
+                                .font(.system(size: 12, weight: .ultraLight, design: .monospaced))
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }
         } .navigationTitle(card.name)
     }
+    
+    @ViewBuilder
+    func pricesSection(_ prices: Prices) -> some View {
+        Section("Prices") {
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("From TCGplayer")
+                        .font(.system(size: 24,weight: .semibold))
+                        .padding(.vertical)
+                    Spacer()
+                }
+                
+                // HOLOFOILD
+                VStack {
+                    Text("HoloFoild")
+                        .font(.system(size: 16, weight: .none, design: .none))
+                    HStack {
+                        VStack {
+                            Text("Market")
+                                .font(.system(size: 14, weight: .light, design: .monospaced))
+                            Text("$\(prices.holofoil?.market ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 16, weight: .light, design: .monospaced))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("low")
+                                .font(.system(size: 14, weight: .light, design: .monospaced))
+                            Text("$\(prices.holofoil?.low ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.red)
+                                .font(.system(size: 16, weight: .light, design: .monospaced))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("Mid")
+                                .font(.system(size: 14, weight: .light, design: .monospaced))
+                            Text("$\(prices.holofoil?.mid ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 16, weight: .light, design: .monospaced))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("High")
+                                .font(.system(size: 14, weight: .light, design: .monospaced))
+                            Text("$\(prices.holofoil?.high ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.green)
+                                .font(.system(size: 16, weight: .light, design: .monospaced))
+                        }
+                    }
+                }.padding()
+                
+                // Reversed HoloFoild
+                VStack {
+                    Text("Reverse HoloFoild")
+                        .font(.system(size: 16, weight: .none, design: .none))
+                    
+                    HStack {
+                        VStack {
+                            Text("Market")
+                                .font(.system(size: 14, weight: .light, design: .none))
+                            
+                            Text("$\(prices.reverseHolofoil?.market ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 16, weight: .light, design: .none))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("low")
+                                .font(.system(size: 14, weight: .light, design: .none))
+                            Text("$\(prices.reverseHolofoil?.low ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.red)
+                                .font(.system(size: 16, weight: .light, design: .none))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("Mid")
+                                .font(.system(size: 14, weight: .light, design: .none))
+                            Text("$\(prices.reverseHolofoil?.mid ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 16, weight: .light, design: .none))
+                        }
+                        Spacer()
+                        VStack {
+                            Text("High")
+                                .font(.system(size: 14, weight: .light, design: .none))
+                            Text("$\(prices.reverseHolofoil?.high ?? 0.0 , specifier: "%.2f")")
+                                .foregroundColor(.green)
+                                .font(.system(size: 16, weight: .light, design: .none))
+                        }
+                    }
+                }.padding()
+                
+                VStack {
+                    Text("From CardMarket")
+                        .font(.system(size: 16, weight: .none, design: .none))
+                    
+                    VStack {
+                        HStack {
+                            VStack {
+                                Text("Price Trend")
+                                    .font(.system(size: 14, weight: .light, design: .monospaced))
+                                Text("\(card.cardmarket?.prices?["averageSellPrice"] ?? 0.0, specifier: "%.2f")€")
+                                    .foregroundColor(.brown)
+                                    .font(.system(size: 16, weight: .light, design: .monospaced))
+                                
+                            }
+                            Spacer()
+                            VStack {
+                                Text("1 avg")
+                                    .font(.system(size: 14, weight: .light, design: .monospaced))
+                                Text("\(card.cardmarket?.prices?["avg1"] ?? 0.0, specifier: "%.2f")€")
+                                    .foregroundColor(.brown)
+                                    .font(.system(size: 16, weight: .light, design: .monospaced))
+                            }
+                            Spacer()
+                            VStack {
+                                Text("7 avg")
+                                    .font(.system(size: 14, weight: .light, design: .monospaced))
+                                Text("\(card.cardmarket?.prices?["avg7"] ?? 0.0, specifier: "%.2f")€")
+                                    .foregroundColor(.brown)
+                                    .font(.system(size: 16, weight: .light, design: .monospaced))
+                            }
+                            Spacer()
+                            VStack {
+                                Text("30 avg")
+                                    .font(.system(size: 14, weight: .light, design: .monospaced))
+                                Text("\(card.cardmarket?.prices?["avg30"] ?? 0.0, specifier: "%.2f")€")
+                                    .foregroundColor(.brown)
+                                    .font(.system(size: 16, weight: .light, design: .monospaced))
+                            }
+                        }
+                    }
+                }.padding()
+            }
+            
+        }
+    }
 }
 
-@ViewBuilder func iconType(types: [String]) -> some View {
+@ViewBuilder
+func iconType(types: [String]) -> some View {
     ForEach(types, id: \.self) { type in
         if let image = Utils.getIconForType(type: type) {
             Image(uiImage: image)
@@ -279,7 +296,8 @@ struct CardDetail: View {
     }
 }
 
-@ViewBuilder func weaknessesWith(values: [Resistance]?) -> some View {
+@ViewBuilder
+func weaknessesWith(values: [Resistance]?) -> some View {
     if let values {
         ForEach(values, id: \.type) { value in
             HStack {

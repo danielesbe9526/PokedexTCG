@@ -62,7 +62,7 @@ class APIService {
         
         components.queryItems = [
             URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "pageSize", value: "\(10)"),
+            URLQueryItem(name: "pageSize", value: "\(100)"),
             URLQueryItem(name: "q", value: "name:\(pokemon)")
         ]
 

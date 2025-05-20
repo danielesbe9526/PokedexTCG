@@ -12,35 +12,75 @@ struct ContentView: View {
     
     @State private var searchText = ""
     @State private var alertModel: AlertModel?
-
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @State private var config: DrawerConfig = .init()
+        
+    let columns = [GridItem(.adaptive(minimum: 120, maximum: 170))]
     
     var body: some View {
         ViewWrapper(spinerRun: $viewModel.showSpiner, title: "Pokedex") {
             VStack {
                 ScrollView {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(searchResults) { pokemon in
                             pokemonCard(pokemon: pokemon)
                                 .padding(8)
-                                .frame(width: 190, height: 120)
+                                .frame(height: 120)
                                 .background(.white)
                                 .cornerRadius(8)
-                                .shadow(radius: 10)
+                                .shadow(radius: 5)
                                 .onTapGesture {
                                     viewModel.selectedPokemon = pokemon
                                     viewModel.routeToDetail()
                                 }
+                                .padding(.horizontal, 6)
                         }
                     }
-                    .padding(.top, 16)
+                    .padding()
                 }
                 .padding(.horizontal, 4)
+                
+                Spacer()
+               
+                ProgressView(value: viewModel.progress)
+                    .padding(16)
+                    .progressViewStyle(.linear)
+                    .tint(.red)
+                
+                
+//                /// Botton con alerta
+//                DraweButton(title: "Continue", config: $config)
+//                    .padding(15)
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search pokemons by name")
+            .overlay {
+                if searchResults.isEmpty && !searchText.isEmpty {
+                    ContentUnavailableView.search(text: searchText)
+                }
+            }
+            .alertDrawer(config: $config,
+                         primaryTitle: "Continue",
+                         secondaryTitle: "Cancel") {
+                return true
+            }
+                        onSecondaryAction: {
+                return false
+            }
+            content: {
+                VStack(alignment: .leading, spacing: 15) {
+                    Image(systemName: "exclamationmark.circle")
+                        .font(.largeTitle)
+                        .foregroundStyle(.red)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("No pokemons found")
+                        .font(.title2.bold())
+                    
+                    Text("some large text explaining what just occur")
+                        .foregroundStyle(.gray)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: 300)
+                }
+            }
         }
         .onAppear {
             if viewModel.pokemonsDetails.isEmpty {
@@ -122,6 +162,12 @@ struct ContentView: View {
         }
     }
     
+    var progreesBar: some View {
+        ZStack {
+            
+        }
+    }
+    
     var searchResults: [PokemonDetail] {
            if searchText.isEmpty {
                return viewModel.pokemonsDetails
@@ -151,7 +197,6 @@ struct ContentView_Previews: PreviewProvider {
                                 stats: [Stat(baseStat: 1, effort: 1, stat: Species(name: "species", url: ""))],
                                 types: [TypeElement(slot: 1, type: Species(name: "species", url: ""))],
                                 weight: 123)
-    
     static let pokemon2 = PokemonDetail(height: 123,
                                 id: 2,
                                 isDefault: true,

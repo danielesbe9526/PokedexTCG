@@ -20,6 +20,11 @@ public class PokedexViewModel: ObservableObject {
     @Published var pokemonsDetails: [PokemonDetail] = []
     @Published var selectedPokemon: PokemonDetail? = nil
     
+    var progress: Double {
+        Double(pokemonsDetails.count) / 1302.0
+    }
+
+    
     var nextUrl: String = ""
     var previous: String = ""
     var currentPage = 0
@@ -30,8 +35,9 @@ public class PokedexViewModel: ObservableObject {
     }
     
     /// Previews init
-    public init(pokemonsDetails: [PokemonDetail]) {
+    public init(pokemonsDetails: [PokemonDetail], pokemon: PokemonDetail? = nil) {
         self.pokemonsDetails = pokemonsDetails
+        self.selectedPokemon = pokemon
         self.apiInteractor = nil
         self.destination = nil
     }
@@ -184,8 +190,12 @@ private extension PokedexViewModel {
 }
 
 extension PokedexViewModel {
-    @MainActor
     func routeToDetail() {
-        destination?.navigate(to: .pokemonDetailView)
+        guard let selectedPokemon else { return }
+        destination?.navigate(to: .pokemonDetailView(pokemon: selectedPokemon))
+    }
+    
+    func routeToCardDetail(card: Datum) {
+        destination?.navigate(to: .cardDetail(card))
     }
 }

@@ -28,7 +28,7 @@ public struct PokemonInfo: Codable , Identifiable {
 
 
 // MARK: - PokemonInfo
-public struct PokemonDetail: Codable, Identifiable {
+public struct PokemonDetail: Codable, Identifiable, Hashable, Equatable, Sendable {
     let height: Int
     public let id: Int
     let isDefault: Bool
@@ -49,13 +49,13 @@ public struct PokemonDetail: Codable, Identifiable {
 }
 
 // MARK: - Species
-struct Species: Codable {
+struct Species: Codable, Hashable, Equatable, Sendable {
     let name: String
     let url: String
 }
 
 // MARK: - Sprites
-public struct Sprites: Codable {
+public struct Sprites: Codable, Hashable, Equatable, Sendable {
     let backDefault: String?
     let backFemale: String?
     let backShiny: String?
@@ -82,7 +82,7 @@ public struct Sprites: Codable {
 }
 
 // MARK: - OfficialArtwork
-public struct OfficialArtwork: Codable {
+public struct OfficialArtwork: Codable,Hashable, Equatable, Sendable {
     let frontDefault, frontShiny: String
 
     enum CodingKeys: String, CodingKey {
@@ -92,7 +92,7 @@ public struct OfficialArtwork: Codable {
 }
 
 // MARK: - Home
-public struct Home: Codable {
+public struct Home: Codable, Hashable, Equatable, Sendable {
     let frontDefault: String?
     let frontFemale: String?
     let frontShiny: String?
@@ -107,7 +107,7 @@ public struct Home: Codable {
 }
 
 // MARK: - DreamWorld
-public struct DreamWorld: Codable {
+public struct DreamWorld: Codable, Hashable, Equatable, Sendable {
     let frontDefault: String?
     let frontFemale: String?
 
@@ -118,7 +118,7 @@ public struct DreamWorld: Codable {
 }
 
 // MARK: - Other
-public struct Other: Codable {
+public struct Other: Codable, Hashable, Equatable, Sendable {
     let dreamWorld: DreamWorld
     let home: Home
     let officialArtwork: OfficialArtwork
@@ -131,7 +131,7 @@ public struct Other: Codable {
 }
 
 // MARK: - Stat
-public struct Stat: Codable {
+public struct Stat: Codable, Hashable, Equatable, Sendable {
     let baseStat, effort: Int
     let stat: Species
 
@@ -142,7 +142,7 @@ public struct Stat: Codable {
 }
 
 // MARK: - TypeElement
-public struct TypeElement: Codable {
+public struct TypeElement: Codable, Hashable, Equatable, Sendable {
     let slot: Int
     let type: Species
 }
