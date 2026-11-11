@@ -67,7 +67,7 @@ struct AboutView: View {
 
 enum AppInfo {
     static var name: String {
-        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Binderly"
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Holo Vault"
     }
 
     static let dataSourceURL = URL(string: "https://tcgdex.dev")!

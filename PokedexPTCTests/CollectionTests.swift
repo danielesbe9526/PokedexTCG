@@ -6,7 +6,7 @@
 import Foundation
 import SwiftData
 import Testing
-@testable import Binderly
+@testable import HoloVault
 
 @Suite("Reference prices")
 struct ReferencePriceTests {

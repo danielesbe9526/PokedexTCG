@@ -1,6 +1,6 @@
 # Publicación en la App Store
 
-Guía para publicar **Binderly** reduciendo el riesgo de rechazo (guía 5.2.1 de Apple) y de reclamos de
+Guía para publicar **Holo Vault** reduciendo el riesgo de rechazo (guía 5.2.1 de Apple) y de reclamos de
 propiedad intelectual. No es asesoría legal: antes de cobrar o promocionar la app, consúltalo con un
 abogado de propiedad intelectual.
 
@@ -8,7 +8,7 @@ abogado de propiedad intelectual.
 
 | Antes | Ahora | Por qué |
 |---|---|---|
-| Nombre "Pokédex" / PokedexPTC | **Binderly** (nombre visible, producto y bundle id `daniel.beltran.binderly`) | "Pokédex" es marca registrada |
+| Nombre "Pokédex" / PokedexPTC | **Holo Vault** (nombre visible, producto `HoloVault` y bundle id `daniel.beltran.holovault`) | "Pokédex" es marca registrada |
 | Ícono de Bellsprout | Ícono original (cartas con destello) | Era un personaje con copyright |
 | Pokébola, íconos de tipos y etiquetas oficiales | Eliminados; energías dibujadas con SF Symbols | Arte de terceros |
 | Pokédex con artwork oficial (PokeAPI) | Eliminada | Artwork oficial = mayor riesgo |
@@ -22,10 +22,12 @@ Si llega un aviso, la salida es quitar las imágenes y dejar solo datos y precio
 
 ## Antes de enviar
 
-- [ ] Comprobar que el nombre "Binderly" esté libre: App Store Connect (al crear la app), USPTO/EUIPO y
-      la oficina de marcas de tu país. Si no, cámbialo en `INFOPLIST_KEY_CFBundleDisplayName`.
+- [ ] Comprobar que "Holo Vault" esté libre: App Store Connect (al crear la app), USPTO/EUIPO y
+      la oficina de marcas de tu país. Al 2026-11-11 no había ninguna app con ese nombre en la App Store de EE. UU.
+      Si hay que cambiarlo, es `INFOPLIST_KEY_CFBundleDisplayName`.
+- [ ] Evitar "Card Vault": ya hay tres trackers de cartas con ese nombre.
 - [ ] Aceptar el Program License Agreement pendiente en developer.apple.com.
-- [ ] Crear el App ID `daniel.beltran.binderly` (Xcode lo hace solo con firma automática).
+- [ ] Crear el App ID `daniel.beltran.holovault` (Xcode lo hace solo con firma automática).
 - [ ] Publicar una política de privacidad (puede ser una página simple: "no recopilamos datos").
 - [ ] Capturas **sin** la palabra Pokémon en textos superpuestos; mostrar la colección y el buscador.
 - [ ] Privacidad en App Store Connect: "Data Not Collected".
@@ -42,12 +44,14 @@ Si llega un aviso, la salida es quitar las imágenes y dejar solo datos y precio
 
 ## Texto sugerido
 
-**Nombre:** Binderly
-**Subtítulo:** Colección de cartas y precios
+**Nombre en la App Store (30 car.):** Holo Vault: TCG Price Tracker
+**Nombre bajo el ícono:** Holo Vault
+**Subtítulo (es, 30 car.):** Valor y precios de tus cartas
+**Subtítulo (en):** Card collection & value
 
 **Descripción (es):**
 
-> Binderly te ayuda a organizar tu colección de cartas coleccionables y saber cuánto vale.
+> Holo Vault te ayuda a organizar tu colección de cartas coleccionables y saber cuánto vale.
 >
 > • Explora todas las expansiones, de la más reciente a la más antigua.
 > • Busca cualquier carta por nombre.
@@ -58,14 +62,15 @@ Si llega un aviso, la salida es quitar las imágenes y dejar solo datos y precio
 >
 > Compatible con cartas del juego de cartas coleccionables Pokémon.
 >
-> Binderly es una app no oficial hecha por fans. No está afiliada, respaldada, patrocinada ni aprobada por
+> Holo Vault es una app no oficial hecha por fans. No está afiliada, respaldada, patrocinada ni aprobada por
 > Nintendo, Creatures Inc., GAME FREAK inc. ni The Pokémon Company. Pokémon y los nombres relacionados son
 > marcas registradas de sus respectivos dueños. Datos de cartas: TCGdex. Los precios son estimaciones.
 
-**Palabras clave:** colección,cartas,tcg,coleccionables,binder,precios,valor,tracker,cartas coleccionables
+**Palabras clave** (no repetir palabras del nombre: holo, vault, tcg, price, tracker):
+`cartas,coleccion,binder,precios,valor,coleccionables,expansiones,cards,collection,value,foil`
 
 **Notas para el revisor (App Review):**
 
-> Binderly is a collection tracker for trading card collectors. Card data is retrieved from the public
+> Holo Vault is a collection tracker for trading card collectors. Card data is retrieved from the public
 > TCGdex API (tcgdex.dev). The app is clearly labeled as unofficial in the About screen and the
 > description. It does not use any trademark in its name, icon or keywords, and collects no user data.

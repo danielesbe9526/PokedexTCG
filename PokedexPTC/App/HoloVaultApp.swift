@@ -1,5 +1,5 @@
 //
-//  BinderlyApp.swift
+//  HoloVaultApp.swift
 //  PokedexPTC
 //
 //  Created by Daniel Beltran on 11/04/23.
@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 @main
-struct BinderlyApp: App {
+struct HoloVaultApp: App {
     let catalog: CardCatalog
 
     init() {

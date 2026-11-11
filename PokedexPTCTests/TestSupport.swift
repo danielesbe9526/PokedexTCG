@@ -4,7 +4,7 @@
 //
 
 import Foundation
-@testable import Binderly
+@testable import HoloVault
 
 enum Fixture {
     static func decode<T: Decodable>(_ type: T.Type, _ json: String) throws -> T {

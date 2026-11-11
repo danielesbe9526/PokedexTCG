@@ -5,7 +5,7 @@
 
 import Foundation
 import Testing
-@testable import Binderly
+@testable import HoloVault
 
 @Suite("TCGdex decoding")
 struct TCGDecodingTests {

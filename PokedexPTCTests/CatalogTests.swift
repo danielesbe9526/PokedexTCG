@@ -4,7 +4,7 @@
 //
 
 import Testing
-@testable import Binderly
+@testable import HoloVault
 
 @MainActor
 @Suite("CardCatalog")
