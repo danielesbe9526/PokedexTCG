@@ -1,201 +1,235 @@
 //
-//  PokemonListViewModel.swift
+//  PokedexViewModel.swift
 //  PokedexPTC
 //
 //  Created by Daniel Beltran on 11/04/23.
 //
 
 import Foundation
-import Combine
+import Observation
+
+enum LoadState: Equatable {
+    case idle
+    case loading
+    case loaded
+    case failed(String)
+}
 
 @MainActor
-public class PokedexViewModel: ObservableObject {
-    private let apiInteractor: PokedexApiType?
-    var destination: DestinationViewModel?
-    
-    @Published var showSpiner = false
-    @Published var requestFails = false
-    
-    @Published var pokemons: [PokemonInfo] = []
-    @Published var pokemonsDetails: [PokemonDetail] = []
-    @Published var selectedPokemon: PokemonDetail? = nil
-    
+@Observable
+public final class PokedexViewModel {
+    @ObservationIgnored private let apiInteractor: PokedexApiType?
+    @ObservationIgnored private let diskCache: PokedexDiskCache?
+    @ObservationIgnored var destination: DestinationViewModel?
+
+    private(set) var pokemonsDetails: [PokemonDetail] = []
+    private(set) var state: LoadState = .idle
+    private(set) var totalCount = 0
+    private(set) var failedCount = 0
+
+    /// Max number of detail requests in flight. Avoids firing 1300+ requests at once.
+    private let maxConcurrentRequests = 8
+    /// Results are published in batches so the grid is not re-rendered once per Pokémon.
+    private let publishBatchSize = 40
+    @ObservationIgnored private var loadTask: Task<Void, Never>?
+    @ObservationIgnored private var typeInfoCache: [String: TypeInfo] = [:]
+
     var progress: Double {
-        Double(pokemonsDetails.count) / 1302.0
+        guard totalCount > 0 else { return 0 }
+        return min(Double(pokemonsDetails.count) / Double(totalCount), 1)
     }
 
-    
-    var nextUrl: String = ""
-    var previous: String = ""
-    var currentPage = 0
-    
-    public init(apiInteractor: PokedexApiType?, destination: DestinationViewModel?) {
+    var isLoading: Bool { state == .loading }
+
+    public init(apiInteractor: PokedexApiType?, destination: DestinationViewModel?, diskCache: Bool = true) {
         self.apiInteractor = apiInteractor
         self.destination = destination
+        self.diskCache = diskCache ? PokedexDiskCache() : nil
     }
-    
+
     /// Previews init
-    public init(pokemonsDetails: [PokemonDetail], pokemon: PokemonDetail? = nil) {
+    public init(pokemonsDetails: [PokemonDetail]) {
         self.pokemonsDetails = pokemonsDetails
-        self.selectedPokemon = pokemon
+        self.totalCount = pokemonsDetails.count
+        self.state = .loaded
         self.apiInteractor = nil
         self.destination = nil
+        self.diskCache = nil
     }
-    
-    @MainActor
-    func getPokemons() {
-        Task {
-            showSpiner = true
-            let pokemons = try await apiInteractor?.getPokemons(limit: 50, offset: currentPage)
-            if let pokemons = pokemons {
-                self.pokemons.append(contentsOf: pokemons.results)
-                self.currentPage += 50
-                let urls = self.pokemons.map { $0.url }
-                await getPokemonsDetails(urls: urls)
-                showSpiner = false
-                
-                if self.pokemonsDetails.count < 1302 {
-                    let queries = self.extractNextUrlParameters(form: pokemons.next ?? "")
-                    askFortheRest(limit: pokemons.count - (queries.limit ?? 0), Offset: queries.limit ?? 0)
-                }
-            } else {
-                requestFails = true
-            }
+
+    /// Loads the Pokédex the first time it is called. Uses the disk cache when it is less than a day old.
+    func loadIfNeeded() {
+        guard state == .idle else { return }
+        startLoading(useCache: true)
+    }
+
+    /// Fetches the list again and downloads any Pokémon that is missing (new entries or earlier failures).
+    func refresh() async {
+        if loadTask == nil {
+            startLoading(useCache: false)
+        }
+        await loadTask?.value
+    }
+
+    func retry() {
+        guard loadTask == nil else { return }
+        startLoading(useCache: false)
+    }
+
+    private func startLoading(useCache: Bool) {
+        loadTask = Task { [weak self] in
+            await self?.load(useCache: useCache)
+            self?.loadTask = nil
         }
     }
-    
-    func askFortheRest(limit: Int, Offset: Int) {
-        let pokemonQueue = DispatchQueue(label:"com.downloadPokemons.backgroundQueue",qos: .background)
-        pokemonQueue.async { [weak self] in
-            
-            guard let self = self else { return }
-            var auxPokemon: [PokemonInfo] = []
-            var auxPokemonDetails: [PokemonDetail] = []
-            
-            Task {
-                let pokemons = try await self.apiInteractor?.getPokemons(limit: limit, offset: Offset)
-                if let pokemonsBack = pokemons {
-                    let urls = pokemonsBack.results.map { $0.url }
-                    auxPokemon.append(contentsOf: pokemonsBack.results)
-                    print("Number of pokemons \(auxPokemon.count)")
-                    
-                    
-                    await withTaskGroup(of: PokemonDetail?.self) { group in
-                        for url in urls {
-                            group.addTask {
-                                do {
-                                    guard let id = await self.extractPokemonId(from: url) else { return nil }
-                                    return try await self.apiInteractor?.getPokemonDetails(id: "\(id)")
-                                } catch {
-                                    print("Error fetching pokemon detail: \(error)")
-                                    return nil
-                                }
-                            }
-                        }
-                        
-                        for await task in group {
-                            if let pokemon = task {
-                                auxPokemonDetails.append(pokemon)
-                            } else {
-                                await MainActor.run {
-                                    self.requestFails = true
-                                }
-                            }
-                        }
-                    }
-                    print("Number of pokemons detail \(auxPokemonDetails.count)")
-                    
-                    let sortedPokemons = auxPokemonDetails.sorted { $0.id < $1.id }
-                    
-                    await MainActor.run { [weak self] in
-                        guard let self = self else { return }
-                        self.pokemonsDetails.append(contentsOf: sortedPokemons)
-                    }
-                } else {
-                    await MainActor.run {
-                        self.requestFails = true
-                    }
-                }
+
+    private func load(useCache: Bool) async {
+        guard let apiInteractor else { return }
+        state = .loading
+        failedCount = 0
+
+        if useCache, pokemonsDetails.isEmpty, let diskCache {
+            let cached = await Task.detached(priority: .userInitiated) { diskCache.load() }.value
+            if let cached, !cached.isEmpty {
+                pokemonsDetails = cached
+                totalCount = cached.count
+                state = .loaded
+                return
             }
         }
-    }
-    
-    @MainActor
-    func getPokemonDetail(url: String) {
-        Task {
-            guard let id = extractPokemonId(from: url) else { return }
-            let pokemon = try await apiInteractor?.getPokemonDetails(id: "\(id)")
-            if let pokemon = pokemon {
-                pokemonsDetails.append(pokemon)
-            } else {
-                requestFails = true
+
+        do {
+            // First request only reads the total so the full list can be fetched in one call
+            // (no hardcoded totals, no parsing of the `next` url).
+            let count = try await apiInteractor.getPokemons(limit: 1, offset: 0).count
+            let list = try await apiInteractor.getPokemons(limit: count, offset: 0)
+            let ids = list.results.compactMap(\.id)
+            totalCount = ids.count
+
+            let known = Set(pokemonsDetails.map(\.id))
+            let missing = ids.filter { !known.contains($0) }
+            let failures = await fetchDetails(ids: missing, using: apiInteractor)
+
+            failedCount = failures
+            state = pokemonsDetails.isEmpty ? .failed(String(localized: "Couldn't download any Pokémon. Please try again.")) : .loaded
+
+            if failures == 0, let diskCache {
+                let snapshot = pokemonsDetails
+                Task.detached(priority: .utility) { diskCache.save(snapshot) }
             }
+        } catch is CancellationError {
+            state = pokemonsDetails.isEmpty ? .idle : .loaded
+        } catch {
+            state = pokemonsDetails.isEmpty ? .failed(error.localizedDescription) : .loaded
         }
     }
-    
-    @MainActor
-    func getPokemonsDetails(urls: [String]) async {
+
+    /// Downloads details with bounded concurrency and publishes them in batches. Returns the number of failures.
+    private func fetchDetails(ids: [Int], using api: PokedexApiType) async -> Int {
+        var failures = 0
+        var buffer: [PokemonDetail] = []
+        var iterator = ids.makeIterator()
+
         await withTaskGroup(of: PokemonDetail?.self) { group in
-            for url in urls {
-                group.addTask {
-                    do {
-                        guard let id = await self.extractPokemonId(from: url) else { return nil }
-                        return try await self.apiInteractor?.getPokemonDetails(id: "\(id)")
-
-                    } catch {
-                        print("Error fetching pokemon detail: \(error)")
-                        return nil
-                    }
-                }
+            func enqueueNext() {
+                guard let id = iterator.next() else { return }
+                group.addTask { try? await api.getPokemonDetails(id: "\(id)") }
             }
-            
-            for await pokemon in group {
-                if let pokemon = pokemon {
-                    pokemonsDetails.append(pokemon)
-                    pokemonsDetails = pokemonsDetails.sorted {
-                        $0.id < $1.id
-                    }
+
+            for _ in 0 ..< maxConcurrentRequests { enqueueNext() }
+
+            while let result = await group.next() {
+                if let pokemon = result {
+                    buffer.append(pokemon)
                 } else {
-                    requestFails = true
+                    failures += 1
+                }
+                enqueueNext()
+
+                if buffer.count >= publishBatchSize {
+                    publish(&buffer)
                 }
             }
         }
+
+        publish(&buffer)
+        return failures
+    }
+
+    private func publish(_ buffer: inout [PokemonDetail]) {
+        guard !buffer.isEmpty else { return }
+        pokemonsDetails = (pokemonsDetails + buffer).sorted { $0.id < $1.id }
+        buffer.removeAll(keepingCapacity: true)
     }
 }
 
-private extension PokedexViewModel {
-    
-    func extractPokemonId(from url: String) -> Int? {
-        let urlComponents = url.split(separator: "/")
-        if let idString = urlComponents.last, let id = Int(idString) {
-            return id
-        }
-        
-        return nil
-    }
-    
-    func extractNextUrlParameters(form url: String) -> (limit: Int?, offset: Int?) {
-        guard let url = URL(string: url) else {
-            return (nil, nil)
-        }
-        
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        let queryItems = components?.queryItems
-        
-        let offset = queryItems?.first(where: { $0.name == "offset" })?.value.flatMap { Int($0) }
-        let limit = queryItems?.first(where: { $0.name == "limit" })?.value.flatMap { Int($0) }
-        
-        return (offset, limit)
-    }
-}
+// MARK: - Type effectiveness
 
 extension PokedexViewModel {
-    func routeToDetail() {
-        guard let selectedPokemon else { return }
-        destination?.navigate(to: .pokemonDetailView(pokemon: selectedPokemon))
+    func typeEffectiveness(for types: [TypeElement]) async throws -> TypeEffectiveness {
+        let infos = try await withThrowingTaskGroup(of: TypeInfo.self) { group in
+            for element in types {
+                let name = element.type.name
+                if let cached = typeInfoCache[name] {
+                    group.addTask { cached }
+                } else if let apiInteractor {
+                    group.addTask { try await apiInteractor.getTypeInfo(name: name) }
+                }
+            }
+            var result: [TypeInfo] = []
+            for try await info in group {
+                result.append(info)
+            }
+            return result
+        }
+        for info in infos {
+            typeInfoCache[info.name] = info
+        }
+        return TypeEffectiveness(defendingTypes: infos)
     }
-    
-    func routeToCardDetail(card: Datum) {
+}
+
+// MARK: - Navigation
+
+extension PokedexViewModel {
+    func routeToDetail(_ pokemon: PokemonDetail) {
+        destination?.navigate(to: .pokemonDetailView(pokemon: pokemon))
+    }
+
+    func routeToCardDetail(card: TCGCardBrief) {
         destination?.navigate(to: .cardDetail(card))
+    }
+}
+
+// MARK: - Disk cache
+
+/// Stores the decoded Pokédex in Caches so the app does not download 1300+ details on every launch.
+struct PokedexDiskCache: Sendable {
+    private struct Payload: Codable {
+        let savedAt: Date
+        let pokemons: [PokemonDetail]
+    }
+
+    /// PokeAPI responses are cached by their CDN for one day (`max-age=86400`).
+    var maxAge: TimeInterval = 86_400
+
+    private var fileURL: URL {
+        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+            .appending(path: "pokedex-cache-v1.json")
+    }
+
+    func load() -> [PokemonDetail]? {
+        guard let data = try? Data(contentsOf: fileURL),
+              let payload = try? JSONDecoder().decode(Payload.self, from: data),
+              Date().timeIntervalSince(payload.savedAt) < maxAge else {
+            return nil
+        }
+        return payload.pokemons
+    }
+
+    func save(_ pokemons: [PokemonDetail]) {
+        let payload = Payload(savedAt: Date(), pokemons: pokemons)
+        guard let data = try? JSONEncoder().encode(payload) else { return }
+        try? data.write(to: fileURL, options: .atomic)
     }
 }

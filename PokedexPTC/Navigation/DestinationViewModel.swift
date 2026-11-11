@@ -1,15 +1,17 @@
 //
 //  DestinationViewModel.swift
-//  GraphQLCountries
+//  PokedexPTC
 //
 //  Created by Daniel Beltran on 24/03/25.
 //
 
 import Foundation
+import Observation
 
-final public class DestinationViewModel: ObservableObject {
-    @MainActor
-    @Published public var destination: [ScreenDestination]
+@MainActor
+@Observable
+final public class DestinationViewModel {
+    public var destination: [ScreenDestination]
     
     @MainActor
     public var isNavigationEmpty: Bool {

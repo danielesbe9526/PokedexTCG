@@ -9,25 +9,25 @@ import SwiftUI
 
 @main
 struct PokedexPTCApp: App {
-    let session: APIInteractor
-    var fabric: ScreenFabric
-    var destinationViewModel: DestinationViewModel
-    let pokedexViewModel: PokedexViewModel
-    let pokemonTCGViewModel: PokemonTGCViewModel
-    
+    let fabric: ScreenFabric
+    let destinationViewModel: DestinationViewModel
+
     init() {
-        session = APIInteractor(projectParameters: plistConfigurationDictionary, session: Session())
-        destinationViewModel = DestinationViewModel()
-        pokedexViewModel = PokedexViewModel(apiInteractor: PokedexApiCore(apiInteractor: session), destination: destinationViewModel)
-        pokemonTCGViewModel = PokemonTGCViewModel()
-        
+        // AsyncImage uses URLSession.shared, which reads URLCache.shared. The default is too small for
+        // 1300+ artworks (100-300 KB each), so images were downloaded again on every scroll.
+        URLCache.shared = URLCache(memoryCapacity: 50 * 1024 * 1024, diskCapacity: 500 * 1024 * 1024)
+
+        let apiInteractor = APIInteractor(projectParameters: Self.loadConfiguration(), session: Session())
+        let destinationViewModel = DestinationViewModel()
+        self.destinationViewModel = destinationViewModel
+
         fabric = ScreenFabric(
-            session: session,
-            pokedexViewModel: pokedexViewModel,
-            pokemonTGCViewModel: pokemonTCGViewModel
+            pokedexViewModel: PokedexViewModel(apiInteractor: PokedexApiCore(apiInteractor: apiInteractor),
+                                               destination: destinationViewModel),
+            pokemonTGCViewModel: PokemonTGCViewModel(apiInteractor: TCGApiCore(apiInteractor: apiInteractor))
         )
     }
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationWrapperView(destination: destinationViewModel, fabric: fabric) {
@@ -35,19 +35,13 @@ struct PokedexPTCApp: App {
             }
         }
     }
-    
-    private var plistConfigurationDictionary: [String: String] = {
-        guard let path = Bundle.main.path(forResource: "Configuration", ofType: "plist") else {
+
+    private static func loadConfiguration() -> [String: String] {
+        guard let url = Bundle.main.url(forResource: "Configuration", withExtension: "plist"),
+              let data = try? Data(contentsOf: url),
+              let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: String] else {
             return [:]
         }
-        
-        let url = URL(fileURLWithPath: path)
-        
-        guard let data = try? Data(contentsOf: url),
-              let plist = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String: String] else {
-            return [:]
-        }
-        
         return plist
-    }()
+    }
 }

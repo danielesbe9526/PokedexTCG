@@ -1,6 +1,6 @@
 //
 //  NavigationWrapper.swift
-//  ContriesAPI
+//  PokedexPTC
 //
 //  Created by Daniel Beltran on 15/02/24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavigationWrapperView<Content: View>: View {
-    @ObservedObject var destination: DestinationViewModel
+    @Bindable var destination: DestinationViewModel
     var fabric: ScreenFabric
     var content: () -> Content
     

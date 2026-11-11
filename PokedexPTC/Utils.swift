@@ -34,8 +34,8 @@ class Utils {
         case "Water":
             return UIImage(named: type)
         default:
-            return UIImage(named: "normal")
-        } 
+            return UIImage(named: "Normal")
+        }
     }
     
     static func getTagForType(type: String) -> UIImage? {
@@ -51,7 +51,7 @@ class Utils {
         case "flying":
             return UIImage(named: "TagFlying")
         case "fighting":
-            return UIImage(named: "TagFighting")
+            return UIImage(named: "TagFight")
         case "poison":
             return UIImage(named: "TagPoison")
         case "electric":
@@ -108,6 +108,40 @@ class Utils {
         default:
             return UIColor.init(hexString: "A8A77A")
         }
+    }
+}
+
+// MARK: - PokeAPI types
+
+enum PokemonType {
+    /// The 18 PokeAPI types, in the official order.
+    static let all = ["normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground",
+                      "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"]
+
+    /// Brand color for a lowercase PokeAPI type name.
+    static func color(for type: String) -> UIColor {
+        let hex: String
+        switch type {
+        case "fire": hex = "EE8130"
+        case "water": hex = "6390F0"
+        case "grass": hex = "7AC74C"
+        case "electric": hex = "F7D02C"
+        case "ice": hex = "96D9D6"
+        case "fighting": hex = "C22E28"
+        case "poison": hex = "A33EA1"
+        case "ground": hex = "E2BF65"
+        case "flying": hex = "A98FF3"
+        case "psychic": hex = "F95587"
+        case "bug": hex = "A6B91A"
+        case "rock": hex = "B6A136"
+        case "ghost": hex = "735797"
+        case "dragon": hex = "6F35FC"
+        case "dark": hex = "705746"
+        case "steel": hex = "B7B7CE"
+        case "fairy": hex = "D685AD"
+        default: hex = "A8A77A"
+        }
+        return UIColor(hexString: hex)
     }
 }
 

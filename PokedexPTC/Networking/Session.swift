@@ -1,47 +1,127 @@
 //
 //  Session.swift
-//  GraphQLCountries
+//  PokedexPTC
 //
 //  Created by Daniel Beltran on 24/03/25.
 //
 
 import Foundation
 
-final public class Session: SessionProtocol {
-    let decoder = JSONDecoder()
-    
-    public func request<T>(urlRequest: URLRequest, for type: T.Type) async throws -> Result<T, Error> where T : Decodable {
-        let session = URLSession(configuration: .ephemeral)
-        let (data, response) = try await session.data(for: urlRequest)
-        print(urlRequest.url?.absoluteString ?? "🐛 Bad urlRequest")
-        let responseJson = try? JSONSerialization.jsonObject(with: data, options: [])
-        if let responseJson = responseJson as? [String: Any] {
-            if urlRequest.url?.pathComponents.last ==  "pokemon" {
-                print("Body Response: \(responseJson)")
+/// Errors surfaced by the networking layer. They keep the cause so the UI can show a useful message.
+public enum APIError: Error, LocalizedError, Equatable {
+    case invalidRequest
+    case offline
+    case server(status: Int)
+    case decoding(String)
+    case transport(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .invalidRequest:
+            return String(localized: "The request could not be built. Check Configuration.plist.")
+        case .offline:
+            return String(localized: "You appear to be offline. Check your connection and try again.")
+        case .server(let status):
+            return String(localized: "The server is having trouble (HTTP \(status)). Please try again in a moment.")
+        case .decoding:
+            return String(localized: "The server sent data in an unexpected format.")
+        case .transport(let message):
+            return message
+        }
+    }
+}
+
+public protocol SessionProtocol: Sendable {
+    func request<T: Decodable>(_ urlRequest: URLRequest, as type: T.Type) async throws -> T
+}
+
+final public class Session: SessionProtocol, @unchecked Sendable {
+    private let session: URLSession
+    private let maxAttempts: Int
+
+    /// Uses the `.default` configuration so HTTP caching (PokeAPI sends `max-age=86400`) works,
+    /// backed by the shared `URLCache` configured at app start.
+    public init(maxAttempts: Int = 2) {
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = .shared
+        configuration.requestCachePolicy = .useProtocolCachePolicy
+        configuration.httpMaximumConnectionsPerHost = 8
+        self.session = URLSession(configuration: configuration)
+        self.maxAttempts = max(1, maxAttempts)
+    }
+
+    public func request<T: Decodable>(_ urlRequest: URLRequest, as type: T.Type) async throws -> T {
+        var attempt = 0
+        while true {
+            attempt += 1
+            do {
+                return try await perform(urlRequest, as: type)
+            } catch let error as APIError {
+                // Retry once on 5xx: the TCG providers are known to return intermittent 500/502.
+                if case .server(let status) = error, status >= 500, attempt < maxAttempts {
+                    try await Task.sleep(for: .milliseconds(400 * attempt))
+                    continue
+                }
+                throw error
             }
         }
-        
-        let responseResult: HTTPURLResponse? = response as? HTTPURLResponse
-        let code = responseResult?.statusCode ?? 0
-        if 200 ... 299 ~= code {
-            return .success(try decoder.decode(T.self, from: data))
-        } else {
-            return .failure(URLError(.badServerResponse))
+    }
+
+    private func perform<T: Decodable>(_ urlRequest: URLRequest, as type: T.Type) async throws -> T {
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await session.data(for: urlRequest)
+        } catch let error as URLError {
+            switch error.code {
+            case .notConnectedToInternet, .networkConnectionLost, .dataNotAllowed:
+                throw APIError.offline
+            case .cancelled:
+                throw CancellationError()
+            default:
+                throw APIError.transport(error.localizedDescription)
+            }
+        }
+
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        guard 200 ... 299 ~= status else {
+            throw APIError.server(status: status)
+        }
+
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            #if DEBUG
+            print("Decoding \(T.self) from \(urlRequest.url?.absoluteString ?? "") failed: \(error)")
+            #endif
+            throw APIError.decoding(String(describing: error))
         }
     }
 }
 
-// Testing Mock objects
+// MARK: - Testing / preview doubles
 
 final public class SessionMockedFail: SessionProtocol {
-    public func request<T: Decodable>(urlRequest: URLRequest, for type: T.Type) async throws -> Result<T, Error> {
-        .failure(ResponseError.unknown)
+    private let error: APIError
+
+    public init(error: APIError = .server(status: 500)) {
+        self.error = error
+    }
+
+    public func request<T: Decodable>(_ urlRequest: URLRequest, as type: T.Type) async throws -> T {
+        throw error
     }
 }
 
-final public class SessionMockedSucces: SessionProtocol {
-    public func request<T: Decodable>(urlRequest: URLRequest, for type: T.Type) async throws -> Result<T, Error> {
-        .success(type.self as! T)
+/// Returns the given JSON payload for every request.
+final public class SessionMockedSuccess: SessionProtocol {
+    private let payload: Data
+
+    public init(payload: Data) {
+        self.payload = payload
+    }
+
+    public func request<T: Decodable>(_ urlRequest: URLRequest, as type: T.Type) async throws -> T {
+        try JSONDecoder().decode(T.self, from: payload)
     }
 }
-

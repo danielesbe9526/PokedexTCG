@@ -1,27 +1,19 @@
 //
 //  ScreenFabric.swift
-//  GraphQLCountries
+//  PokedexPTC
 //
 //  Created by Daniel Beltran on 24/03/25.
 //
 
 import SwiftUI
 
+/// Builds the screen for each navigation destination. View models are owned by the App
+/// and use `@Observable`, so views only re-render for the properties they read.
 struct ScreenFabric {
-    @ObservedObject var pokedexViewModel: PokedexViewModel
-    @ObservedObject var pokemonTGCViewModel: PokemonTGCViewModel
-    
-    weak var session: APIInteractor?
+    let pokedexViewModel: PokedexViewModel
+    let pokemonTGCViewModel: PokemonTGCViewModel
 
-    init(session: APIInteractor? = nil,
-         pokedexViewModel: PokedexViewModel,
-         pokemonTGCViewModel: PokemonTGCViewModel) {
-        self.pokedexViewModel = pokedexViewModel
-        self.pokemonTGCViewModel = pokemonTGCViewModel
-        self.session = session
-    }
-    
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func createView(item: ScreenDestination) -> some View {
         switch item {
         case .pokedexMainView:
@@ -30,11 +22,8 @@ struct ScreenFabric {
             PokemonDetailView(viewModel: pokedexViewModel,
                               viewModelTCG: pokemonTGCViewModel,
                               pokemon: pokemon)
-//        case .cardsTCGView(let cards):
-//            CardsView(cards: cards, viewModel: pokedexViewModel)
         case .cardDetail(let card):
-            CardDetail(card: card)
+            CardDetail(card: card, viewModel: pokemonTGCViewModel)
         }
     }
 }
-

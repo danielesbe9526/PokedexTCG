@@ -1,127 +1,50 @@
 //
-//  NetworkManager.swift
+//  APIService.swift
 //  PokedexPTC
 //
-//  Created by Daniel Beltran on 11/04/23.
+//  Sample data for SwiftUI previews.
 //
 
 import Foundation
-import Combine
 
-class APIService {
-    
-    static let shared = APIService()
-    
-    func getPokemons(limit: Int = 20, offset: Int) -> AnyPublisher<Pokemon, Error> {
-        guard var components = URLComponents(string: "https://pokeapi.co/api/v2/pokemon") else {
-            return Fail(error: NSError(domain: "invalid URL", code: -1000)).eraseToAnyPublisher()
-        }
-        components.queryItems = [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
-        
-        guard let url = components.url else {
-            return Fail(error: NSError(domain: "invalid URL components", code: -1000)).eraseToAnyPublisher()
-        }
-        
-        let request = URLRequest(url: url)
-        
-        return URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap(handleOutput)
-            .decode(type: Pokemon.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-    
-    func getPokemonDetail(url: String) -> AnyPublisher<PokemonDetail, Error> {
-        guard let url = URL(string: url) else {
-            return Fail(error: NSError(domain: "invalid URL", code: -1000)).eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .tryMap(handleOutput)
-            .decode(type: PokemonDetail.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-    
-    
-    func handleOutput(output: URLSession.DataTaskPublisher.Output) throws -> Data {
-        guard
-            let response = output.response as? HTTPURLResponse,
-            response.statusCode >= 200 && response.statusCode < 300 else {
-            throw URLError(.badServerResponse)
-        }
-        
-        return output.data
-    }
-    
-    func getPokemonTGC(page: Int, pokemon: String) -> AnyPublisher<Card, Error> {
-        guard var components = URLComponents(string: "https://api.pokemontcg.io/v2/cards") else {
-            return Fail(error: NSError(domain: "invalid URL", code: -1000)).eraseToAnyPublisher()
-        }
-        
-        components.queryItems = [
-            URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "pageSize", value: "\(100)"),
-            URLQueryItem(name: "q", value: "name:\(pokemon)")
-        ]
+enum PreviewData {
+    static let pokemon: PokemonDetail? = {
+        guard let url = Bundle.main.url(forResource: "pokemonMocked", withExtension: "json"),
+              let data = try? Data(contentsOf: url) else { return nil }
+        return try? JSONDecoder().decode(PokemonDetail.self, from: data)
+    }()
 
-        guard let url = components.url else {
-            return Fail(error: NSError(domain: "invalid URL components", code: -1000)).eraseToAnyPublisher()
+    static let cards: [TCGCardBrief] = [
+        TCGCardBrief(id: "me06-001", localId: "001", name: "Heracross",
+                     image: nil, setName: "Delta Reign"),
+        TCGCardBrief(id: "sv03.5-025", localId: "025", name: "Pikachu",
+                     image: "https://assets.tcgdex.net/en/sv/sv03.5/025", setName: "151"),
+        TCGCardBrief(id: "30th-c-008", localId: "008", name: "Pikachu", image: nil, setName: "30th Celebration")
+    ]
+
+    static let card: TCGCard? = {
+        let json = """
+        {
+          "id": "me06-001", "localId": "001", "name": "Heracross", "category": "Pokemon",
+          "illustrator": "Satoshi Ito", "rarity": "Common", "hp": 130, "types": ["Grass"], "stage": "Basic",
+          
+          "set": { "id": "me06", "name": "Delta Reign", "cardCount": { "official": 103, "total": 141 } },
+          "attacks": [
+            { "cost": ["Grass"], "name": "Spike Draw", "effect": "Draw 2 cards.", "damage": 20 },
+            { "cost": ["Grass", "Grass", "Colorless"], "name": "High Horsepower",
+              "effect": "This Pokémon also does 30 damage to itself.", "damage": 130 }
+          ],
+          "weaknesses": [{ "type": "Fire", "value": "×2" }],
+          "retreat": 3,
+          "legal": { "standard": false, "expanded": true },
+          "pricing": {
+            "cardmarket": { "updated": "2026-11-10T23:49:36.538Z", "unit": "EUR", "avg": null, "low": 0.02,
+                            "trend": 0.02, "avg1": 0.05, "avg7": 0.04, "avg30": 0.04 },
+            "tcgplayer": { "unit": "USD", "updated": "2026-11-10T23:49:52.465Z",
+              "normal": { "lowPrice": 0.01, "midPrice": 0.15, "highPrice": 1.59, "marketPrice": 0.08 } }
+          }
         }
-        
-        var request = URLRequest(url: url)
-        request.addValue("REMOVED_API_KEY", forHTTPHeaderField: "X-Api-Key")
-        request.httpMethod = "GET"
-        
-        return URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap(handleOutput)
-            .decode(type: Card.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-    
-    func mockedPokemon() -> PokemonDetail? {
-        guard let url = Bundle.main.url(forResource: "pokemonMocked", withExtension: "json") else {return nil}
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode(PokemonDetail.self, from: data)
-            return jsonData
-        } catch {
-            print(error)
-        }
-        
-        return nil
-    }
-    
-    func mockedCard() -> [Datum]? {
-        guard let url = Bundle.main.url(forResource: "CardsMocked", withExtension: "json") else { return nil }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode(Card.self, from: data)
-            return jsonData.data
-        } catch {
-            print(error)
-        }
-        
-        return nil
-    }
-    
-    func mockedDatum() -> Datum? {
-        guard let url = Bundle.main.url(forResource: "CardMocked", withExtension: "json") else { return nil }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode(Datum.self, from: data)
-            return jsonData
-        } catch {
-            print(error)
-        }
-        
-        return nil
-    }
+        """
+        return try? JSONDecoder().decode(TCGCard.self, from: Data(json.utf8))
+    }()
 }

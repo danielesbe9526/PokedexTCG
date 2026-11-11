@@ -2,49 +2,81 @@
 //  PokemonTGCViewModel.swift
 //  PokedexPTC
 //
-//  Created by Daniel Beltran on 12/04/23.
-//
 
 import Foundation
-import Combine
 
-class PokemonTGCViewModel: ObservableObject {
-    @Published var requestFails = false
-    @Published var cards: [Datum] = []
-    
-    var nextUrl: String = ""
-    var previous: String = ""
-    var currentPage = 1
+/// Data source for TCG cards. Views own their loading state; this object fetches and caches.
+@MainActor
+final class PokemonTGCViewModel {
+    private let apiInteractor: TCGApiType?
 
-    private var cancellable: AnyCancellable?
-    
-    init() { }
+    private var cardsCache: [TCGCardQuery: [TCGCardBrief]] = [:]
+    private var cardDetailCache: [String: TCGCard] = [:]
+    /// Set id → (chronological index, name). TCGdex returns `/sets` in release order.
+    private var setIndex: [String: (order: Int, name: String)]?
 
-    func getTCG(for pokemon: String) {
-        cancellable = APIService.shared.getPokemonTGC(page: currentPage, pokemon: pokemon)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                guard let strongSelf = self else { return }
-                switch completion {
-                case .failure(let error):
-                    strongSelf.requestFails = true
-                    print(error)
-                case .finished:
-                    print("finished TCG")
-                }
-            }, receiveValue: { [weak self] returnedCards in
-                guard let strongSelf = self else { return }
-                strongSelf.cards.append(contentsOf: returnedCards.data)
-            })
+    init(apiInteractor: TCGApiType? = nil) {
+        self.apiInteractor = apiInteractor
     }
 
-    func handleOutput(output: URLSession.DataTaskPublisher.Output) throws -> Data {
-        guard
-            let response = output.response as? HTTPURLResponse,
-            response.statusCode >= 200 && response.statusCode < 300 else {
-            throw URLError(.badServerResponse)
+    /// All cards for a Pokémon, newest set first.
+    func cards(for pokemon: PokemonDetail) async throws -> [TCGCardBrief] {
+        let query = Self.query(for: pokemon)
+        if let cached = cardsCache[query] {
+            return cached
         }
-        
-        return output.data
+        guard let apiInteractor else { return [] }
+
+        async let cardsRequest = apiInteractor.getCards(query: query)
+        let sets = try await loadSetIndex(using: apiInteractor)
+        let cards = try await cardsRequest
+
+        let sorted = cards
+            .map { card -> TCGCardBrief in
+                var card = card
+                card.setName = sets[card.setId]?.name
+                return card
+            }
+            .sorted { lhs, rhs in
+                let lhsOrder = sets[lhs.setId]?.order ?? -1
+                let rhsOrder = sets[rhs.setId]?.order ?? -1
+                if lhsOrder != rhsOrder { return lhsOrder > rhsOrder }
+                return lhs.localId.localizedStandardCompare(rhs.localId) == .orderedAscending
+            }
+
+        cardsCache[query] = sorted
+        return sorted
+    }
+
+    func card(id: String) async throws -> TCGCard {
+        if let cached = cardDetailCache[id] {
+            return cached
+        }
+        guard let apiInteractor else { throw APIError.invalidRequest }
+        let card = try await apiInteractor.getCard(id: id)
+        cardDetailCache[id] = card
+        return card
+    }
+
+    private func loadSetIndex(using api: TCGApiType) async throws -> [String: (order: Int, name: String)] {
+        if let setIndex {
+            return setIndex
+        }
+        let sets = try await api.getSets()
+        let index = Dictionary(
+            sets.enumerated().map { ($0.element.id, (order: $0.offset, name: $0.element.name)) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        setIndex = index
+        return index
+    }
+
+    private static func query(for pokemon: PokemonDetail) -> TCGCardQuery {
+        if let dexId = pokemon.nationalDexNumber {
+            return .dexId(dexId)
+        }
+        // Alternate form without species info: search by the base name ("charizard-mega-x" → "charizard").
+        let baseName = pokemon.name.split(separator: "-").first.map(String.init) ?? pokemon.name
+        return .name(baseName)
     }
 }

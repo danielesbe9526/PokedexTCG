@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+
+# Local secrets (never commit API keys)
+Secrets.plist
+*.secrets.xcconfig

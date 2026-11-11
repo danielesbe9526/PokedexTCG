@@ -7,12 +7,8 @@
 
 import Foundation
 
-//   let pokemon = try? JSONDecoder().decode(Pokemon.self, from: jsonData)
-
-import Foundation
-
 // MARK: - Pokemon
-public struct Pokemon: Codable {
+public struct Pokemon: Codable, Sendable {
     let count: Int
     let next: String?
     let previous: String?
@@ -20,10 +16,14 @@ public struct Pokemon: Codable {
 }
 
 // MARK: - Result
-public struct PokemonInfo: Codable , Identifiable {
-    public var id: Int?
+public struct PokemonInfo: Codable, Sendable {
     let name: String
     let url: String
+
+    /// PokeAPI urls end with the id: https://pokeapi.co/api/v2/pokemon/25/
+    var id: Int? {
+        url.split(separator: "/").last.flatMap { Int($0) }
+    }
 }
 
 
@@ -38,13 +38,47 @@ public struct PokemonDetail: Codable, Identifiable, Hashable, Equatable, Sendabl
     let stats: [Stat]
     let types: [TypeElement]
     let weight: Int
+    var species: Species? = nil
 
     enum CodingKeys: String, CodingKey {
         case height
         case id
         case isDefault = "is_default"
         case name, order
-        case sprites, stats, types, weight
+        case sprites, stats, types, weight, species
+    }
+}
+
+extension PokemonDetail {
+    /// "mr-mime" → "Mr Mime"
+    var displayName: String {
+        name.split(separator: "-").map { $0.capitalized }.joined(separator: " ")
+    }
+
+    /// PokeAPI gives weight in hectograms.
+    var weightInKilograms: Double { Double(weight) / 10 }
+
+    /// PokeAPI gives height in decimeters.
+    var heightInMeters: Double { Double(height) / 10 }
+
+    /// Alternate forms (megas, regional forms, gmax...) use ids above 10000.
+    var isAlternateForm: Bool { id > 10_000 }
+
+    /// National Pokédex number, taken from the species for alternate forms.
+    var nationalDexNumber: Int? {
+        if let speciesId = species?.url.split(separator: "/").last.flatMap({ Int($0) }) {
+            return speciesId
+        }
+        return isAlternateForm ? nil : id
+    }
+
+    var primaryTypeName: String {
+        types.sorted { $0.slot < $1.slot }.first?.type.name ?? "normal"
+    }
+
+    var artworkURL: URL? {
+        let candidates = [sprites?.other?.officialArtwork?.frontDefault, sprites?.frontDefault]
+        return candidates.compactMap { $0 }.first { !$0.isEmpty }.flatMap(URL.init(string:))
     }
 }
 
@@ -83,7 +117,8 @@ public struct Sprites: Codable, Hashable, Equatable, Sendable {
 
 // MARK: - OfficialArtwork
 public struct OfficialArtwork: Codable,Hashable, Equatable, Sendable {
-    let frontDefault, frontShiny: String
+    let frontDefault: String?
+    let frontShiny: String?
 
     enum CodingKeys: String, CodingKey {
         case frontDefault = "front_default"
@@ -119,9 +154,9 @@ public struct DreamWorld: Codable, Hashable, Equatable, Sendable {
 
 // MARK: - Other
 public struct Other: Codable, Hashable, Equatable, Sendable {
-    let dreamWorld: DreamWorld
-    let home: Home
-    let officialArtwork: OfficialArtwork
+    let dreamWorld: DreamWorld?
+    let home: Home?
+    let officialArtwork: OfficialArtwork?
 
     enum CodingKeys: String, CodingKey {
         case dreamWorld = "dream_world"

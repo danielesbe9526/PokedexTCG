@@ -7,40 +7,28 @@
 
 import Foundation
 
-public protocol PokedexApiType {
-    func getPokemons(limit: Int, offset: Int) async throws -> Pokemon?
-    func getPokemonDetails(id: String) async throws -> PokemonDetail?
+public protocol PokedexApiType: Sendable {
+    func getPokemons(limit: Int, offset: Int) async throws -> Pokemon
+    func getPokemonDetails(id: String) async throws -> PokemonDetail
+    func getTypeInfo(name: String) async throws -> TypeInfo
 }
 
 public struct PokedexApiCore: PokedexApiType {
-    weak var apiInteractor: APIInteractor?
-    
+    private let apiInteractor: APIInteractor
+
     public init(apiInteractor: APIInteractor) {
         self.apiInteractor = apiInteractor
     }
 
-    public func getPokemons(limit: Int, offset: Int) async throws -> Pokemon? {
-        let request = APIRoute.getPokemons(limit: limit, offset: offset)
-        let result = try await apiInteractor?.manageRequest(with: request, for: Pokemon.self)
-        
-        switch result {
-        case .success(let value):
-            return value
-        case .failure, .none:
-            return nil
-        }
+    public func getPokemons(limit: Int, offset: Int) async throws -> Pokemon {
+        try await apiInteractor.request(.getPokemons(limit: limit, offset: offset), as: Pokemon.self)
     }
-    
-    public func getPokemonDetails(id: String) async throws -> PokemonDetail? {
-        
-        let reqest = APIRoute.getPokemonDetail(id: id)
-        let result = try await apiInteractor?.manageRequest(with: reqest, for: PokemonDetail.self)
-        
-        switch result {
-        case .success(let value):
-            return value
-        case .failure, .none:
-            return nil
-        }
+
+    public func getPokemonDetails(id: String) async throws -> PokemonDetail {
+        try await apiInteractor.request(.getPokemonDetail(id: id), as: PokemonDetail.self)
+    }
+
+    public func getTypeInfo(name: String) async throws -> TypeInfo {
+        try await apiInteractor.request(.getTypeInfo(name: name), as: TypeInfo.self)
     }
 }

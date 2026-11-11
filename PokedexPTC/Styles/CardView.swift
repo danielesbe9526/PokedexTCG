@@ -1,6 +1,6 @@
 //
 //  CardView.swift
-//  ContriesAPI
+//  PokedexPTC
 //
 //  Created by Daniel Beltran on 19/02/24.
 //
