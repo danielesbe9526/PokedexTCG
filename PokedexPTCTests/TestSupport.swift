@@ -4,35 +4,29 @@
 //
 
 import Foundation
-@testable import PokedexPTC
+@testable import Binderly
 
 enum Fixture {
-    static func pokemon(id: Int, name: String? = nil, types: [String] = ["normal"], speciesId: Int? = nil) -> PokemonDetail {
-        PokemonDetail(
-            height: 10, id: id, isDefault: true, name: name ?? "pokemon-\(id)", order: id,
-            sprites: nil,
-            stats: [Stat(baseStat: 50, effort: 0, stat: Species(name: "hp", url: ""))],
-            types: types.enumerated().map { TypeElement(slot: $0.offset + 1, type: Species(name: $0.element, url: "")) },
-            weight: 100,
-            species: speciesId.map { Species(name: "species", url: "https://pokeapi.co/api/v2/pokemon-species/\($0)/") }
-        )
-    }
-
-    static func typeInfo(_ name: String,
-                         doubleFrom: [String] = [], halfFrom: [String] = [], noneFrom: [String] = [],
-                         doubleTo: [String] = []) -> TypeInfo {
-        TypeInfo(name: name, damageRelations: DamageRelations(
-            doubleDamageFrom: doubleFrom.map(TypeName.init(name:)),
-            doubleDamageTo: doubleTo.map(TypeName.init(name:)),
-            halfDamageFrom: halfFrom.map(TypeName.init(name:)),
-            halfDamageTo: [],
-            noDamageFrom: noneFrom.map(TypeName.init(name:)),
-            noDamageTo: []
-        ))
-    }
-
     static func decode<T: Decodable>(_ type: T.Type, _ json: String) throws -> T {
         try JSONDecoder().decode(T.self, from: Data(json.utf8))
+    }
+
+    /// Card detail with optional TCGplayer variants (`name: market`) and Cardmarket trend.
+    static func card(id: String = "sv03.5-025", name: String = "Pikachu",
+                     tcgplayer: [String: Double]? = nil, cardmarketTrend: Double? = nil) throws -> TCGCard {
+        var pricing: [String] = []
+        if let tcgplayer {
+            let variants = tcgplayer.map { "\"\($0.key)\": { \"marketPrice\": \($0.value), \"midPrice\": 999 }" }
+            pricing.append("\"tcgplayer\": { \"unit\": \"USD\", \(variants.joined(separator: ", ")) }")
+        }
+        if let cardmarketTrend {
+            pricing.append("\"cardmarket\": { \"unit\": \"EUR\", \"trend\": \(cardmarketTrend) }")
+        }
+        let pricingJSON = pricing.isEmpty ? "null" : "{ \(pricing.joined(separator: ", ")) }"
+        return try decode(TCGCard.self, """
+        { "id": "\(id)", "localId": "025", "name": "\(name)", "image": "https://assets.tcgdex.net/en/sv/sv03.5/025",
+          "set": { "id": "sv03.5", "name": "151" }, "pricing": \(pricingJSON) }
+        """)
     }
 }
 
@@ -49,52 +43,34 @@ actor CallLog {
     }
 }
 
-struct FakePokedexApi: PokedexApiType {
-    var total: Int
-    var failingIds: Set<Int> = []
-    var listError: APIError?
-    let log = CallLog()
-
-    func getPokemons(limit: Int, offset: Int) async throws -> Pokemon {
-        await log.record("list")
-        if let listError { throw listError }
-        let ids = (1 ... max(total, 1)).prefix(limit).map { $0 + offset }
-        return Pokemon(count: total, next: nil, previous: nil,
-                       results: total == 0 ? [] : ids.map { PokemonInfo(name: "p\($0)", url: "https://pokeapi.co/api/v2/pokemon/\($0)/") })
-    }
-
-    func getPokemonDetails(id: String) async throws -> PokemonDetail {
-        await log.record("detail")
-        let numericId = Int(id) ?? 0
-        if failingIds.contains(numericId) { throw APIError.server(status: 500) }
-        return Fixture.pokemon(id: numericId)
-    }
-
-    func getTypeInfo(name: String) async throws -> TypeInfo {
-        await log.record("type:\(name)")
-        return Fixture.typeInfo(name)
-    }
-}
-
 struct FakeTCGApi: TCGApiType {
-    var cards: [TCGCardBrief]
-    var sets: [TCGSetBrief]
+    var cards: [TCGCardBrief] = []
+    var sets: [TCGSetBrief] = []
+    var setDetails: [String: TCGSet] = [:]
+    var failingCardIds: Set<String> = []
+    /// Market price returned for every card detail, so price refreshes can be observed.
+    var marketPrice: Double = 1
     let log = CallLog()
 
-    func getCards(query: TCGCardQuery) async throws -> [TCGCardBrief] {
-        await log.record("cards:\(query)")
+    func searchCards(name: String) async throws -> [TCGCardBrief] {
+        await log.record("search:\(name)")
         return cards
     }
 
     func getCard(id: String) async throws -> TCGCard {
         await log.record("card:\(id)")
-        return try Fixture.decode(TCGCard.self, """
-        { "id": "\(id)", "localId": "1", "name": "Test", "set": { "id": "s", "name": "Set" } }
-        """)
+        if failingCardIds.contains(id) { throw APIError.server(status: 500) }
+        return try Fixture.card(id: id, tcgplayer: ["normal": marketPrice])
     }
 
     func getSets() async throws -> [TCGSetBrief] {
         await log.record("sets")
         return sets
+    }
+
+    func getSet(id: String) async throws -> TCGSet {
+        await log.record("set:\(id)")
+        guard let set = setDetails[id] else { throw APIError.server(status: 404) }
+        return set
     }
 }

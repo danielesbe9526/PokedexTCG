@@ -39,7 +39,7 @@ final public class Session: SessionProtocol, @unchecked Sendable {
     private let session: URLSession
     private let maxAttempts: Int
 
-    /// Uses the `.default` configuration so HTTP caching (PokeAPI sends `max-age=86400`) works,
+    /// Uses the `.default` configuration so HTTP caching (Cache-Control headers) works,
     /// backed by the shared `URLCache` configured at app start.
     public init(maxAttempts: Int = 2) {
         let configuration = URLSessionConfiguration.default

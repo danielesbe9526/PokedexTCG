@@ -52,6 +52,35 @@ enum TCGImage {
 struct TCGSetBrief: Codable, Hashable, Sendable, Identifiable {
     let id: String
     let name: String
+    var cardCount: TCGCardSet.CardCount? = nil
+}
+
+// MARK: - Set detail
+
+struct TCGSet: Decodable, Hashable, Sendable, Identifiable {
+    let id: String
+    let name: String
+    let releaseDate: String?
+    let cards: [TCGCardBrief]
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, releaseDate, cards
+    }
+
+    init(id: String, name: String, releaseDate: String? = nil, cards: [TCGCardBrief]) {
+        self.id = id
+        self.name = name
+        self.releaseDate = releaseDate
+        self.cards = cards
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        name = try c.decode(String.self, forKey: .name)
+        releaseDate = try? c.decodeIfPresent(String.self, forKey: .releaseDate)
+        cards = (try? c.decodeIfPresent([TCGCardBrief].self, forKey: .cards)) ?? []
+    }
 }
 
 // MARK: - Card detail
@@ -212,10 +241,7 @@ struct TCGPlayerPricing: Decodable, Hashable, Sendable {
 
         var id: String { name }
 
-        /// "reverse-holofoil" → "Reverse Holofoil"
-        var displayName: String {
-            name.split(separator: "-").map { $0.capitalized }.joined(separator: " ")
-        }
+        var displayName: String { CardVariant.displayName(name) }
     }
 
     private struct VariantPayload: Decodable {
@@ -242,6 +268,48 @@ struct TCGPlayerPricing: Decodable, Hashable, Sendable {
                                high: payload.highPrice, market: payload.marketPrice)
             }
             .sorted { $0.name < $1.name }
+    }
+}
+
+// MARK: - Collection pricing
+
+/// Print variants a collector can own. TCGplayer names them ("normal", "holofoil", "reverse-holofoil"...).
+enum CardVariant {
+    static let normal = "normal"
+
+    /// "reverse-holofoil" → "Reverse Holofoil"
+    static func displayName(_ name: String) -> String {
+        name.split(separator: "-").map { $0.capitalized }.joined(separator: " ")
+    }
+}
+
+struct CardPrice: Hashable, Sendable {
+    let value: Double
+    let currency: String
+}
+
+extension TCGCard {
+    /// Variants offered when adding the card to the collection.
+    var ownableVariants: [String] {
+        let names = pricing?.tcgplayer?.variants.map(\.name) ?? []
+        return names.isEmpty ? [CardVariant.normal] : names
+    }
+
+    /// Price used to value the collection: TCGplayer market (or mid) for the variant,
+    /// otherwise the Cardmarket trend.
+    func referencePrice(variant: String) -> CardPrice? {
+        if let tcgplayer = pricing?.tcgplayer {
+            let variants = tcgplayer.variants
+            let match = variants.first { $0.name == variant } ?? (variants.count == 1 ? variants.first : nil)
+            if let match, let value = match.market ?? match.mid {
+                return CardPrice(value: value, currency: tcgplayer.unit ?? "USD")
+            }
+        }
+        if let cardmarket = pricing?.cardmarket,
+           let value = cardmarket.trend ?? cardmarket.avg30 ?? cardmarket.avg {
+            return CardPrice(value: value, currency: cardmarket.unit ?? "EUR")
+        }
+        return nil
     }
 }
 

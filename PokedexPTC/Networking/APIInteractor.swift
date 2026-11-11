@@ -9,20 +9,16 @@ import Foundation
 
 public final class APIInteractor: Sendable {
     enum ConfigKey {
-        static let pokeApi = "url_pokeApi"
         static let tcgdex = "url_tcgdex"
     }
 
-    private static let defaultURLs = [
-        ConfigKey.pokeApi: "https://pokeapi.co",
-        ConfigKey.tcgdex: "https://api.tcgdex.net"
-    ]
+    private static let defaultBaseURL = "https://api.tcgdex.net"
 
-    private let projectParameters: [String: String]
+    private let baseURL: String
     private let session: SessionProtocol
 
     public init(projectParameters: [String: String], session: SessionProtocol) {
-        self.projectParameters = projectParameters
+        self.baseURL = projectParameters[ConfigKey.tcgdex] ?? Self.defaultBaseURL
         self.session = session
     }
 
@@ -32,21 +28,9 @@ public final class APIInteractor: Sendable {
         }
         return try await session.request(urlRequest, as: T.self)
     }
-}
-
-private extension APIInteractor {
-    func baseURL(for route: APIRoute) -> String? {
-        let key: String
-        switch route.host {
-        case .pokeApi: key = ConfigKey.pokeApi
-        case .tcgdex: key = ConfigKey.tcgdex
-        }
-        return projectParameters[key] ?? Self.defaultURLs[key]
-    }
 
     func urlRequest(for route: APIRoute) -> URLRequest? {
-        guard let base = baseURL(for: route),
-              let url = URL(string: base)?.appending(path: route.path),
+        guard let url = URL(string: baseURL)?.appending(path: route.path),
               var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return nil
         }

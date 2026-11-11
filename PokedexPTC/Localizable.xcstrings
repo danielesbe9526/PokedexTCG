@@ -1,948 +1,998 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "#%@": {
-      "shouldTranslate": false
+  "sourceLanguage" : "en",
+  "strings" : {
+    "#%@" : {
+      "shouldTranslate" : false
     },
-    "%@ %@: %@": {
-      "shouldTranslate": false
+    "%@ card image" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imagen de la carta %@"
+          }
+        }
+      }
+    },
+    "%@ is an unofficial, fan-made app. It is not affiliated with, endorsed, sponsored or approved by Nintendo, Creatures Inc., GAME FREAK inc. or The Pokémon Company." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ es una app no oficial hecha por fans. No está afiliada, respaldada, patrocinada ni aprobada por Nintendo, Creatures Inc., GAME FREAK inc. ni The Pokémon Company."
+          }
+        }
+      }
+    },
+    "%@ · #%@" : {
+      "shouldTranslate" : false
+    },
+    "%@ · ×%lld" : {
+      "shouldTranslate" : false
+    },
+    "%@, %@, number %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@, número %3$@"
+          }
+        }
+      }
+    },
+    "%@: legal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: legal"
+          }
+        }
+      }
     },
-    "%@ artwork": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ilustración de %@"
+    "%@: not legal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: no legal"
           }
         }
       }
     },
-    "%@ card image": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Imagen de la carta %@"
+    "%lld cards" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cartas"
           }
         }
       }
     },
-    "%@ sprite": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprite %@"
+    "%lld cards failed. Check your connection and pull down to try again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fallaron %lld cartas. Revisa tu conexión y desliza hacia abajo para reintentar."
           }
         }
       }
     },
-    "%@, %@, number %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@, %2$@, número %3$@"
+    "%lld cards · %lld unique" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cartas · %lld distintas"
           }
         }
       }
     },
-    "%@, number %lld, %@ type": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@, número %2$lld, tipo %3$@"
+    "1-day avg" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media 1 día"
           }
         }
       }
     },
-    "%@: legal": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: legal"
+    "30-day avg" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media 30 días"
           }
         }
       }
     },
-    "%@: not legal": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@: no legal"
+    "7-day avg" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media 7 días"
           }
         }
       }
     },
-    "%lld": {
-      "shouldTranslate": false
+    "Abilities" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habilidades"
+          }
+        }
+      }
     },
-    "%lld Pokémon couldn't be loaded. Pull to refresh.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudieron cargar %lld Pokémon. Desliza hacia abajo para reintentar."
+    "Ability" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habilidad"
           }
         }
       }
     },
-    "%lld percent": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld por ciento"
+    "About" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acerca de"
           }
         }
       }
     },
-    "1-day avg": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Media 1 día"
+    "Add" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir"
           }
         }
       }
     },
-    "30-day avg": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Media 30 días"
+    "Add to collection" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir a la colección"
           }
         }
       }
     },
-    "7-day avg": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Media 7 días"
+    "Attacks" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ataques"
           }
         }
       }
     },
-    "Abilities": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Habilidades"
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         }
       }
     },
-    "Ability": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Habilidad"
+    "Card data" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos de cartas"
           }
         }
       }
     },
-    "All types": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los tipos"
+    "Cardmarket prices" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios en Cardmarket"
           }
         }
       }
     },
-    "Attack": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ataque"
+    "Check the spelling or try a shorter name." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa la ortografía o prueba con un nombre más corto."
           }
         }
       }
     },
-    "Attacks": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ataques"
+    "Collection" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colección"
           }
         }
       }
     },
-    "Back": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Espalda"
+    "Couldn't load card details" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo cargar la carta"
           }
         }
       }
     },
-    "Back shiny": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Espalda shiny"
+    "Couldn't load cards" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron cargar las cartas"
           }
         }
       }
     },
-    "Base stats": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Estadísticas base"
+    "Couldn't load sets" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron cargar las expansiones"
           }
         }
       }
     },
-    "Cardmarket prices": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Precios en Cardmarket"
+    "Data sources" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuentes de datos"
           }
         }
       }
     },
-    "Cards": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cartas"
+    "Description" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
           }
         }
       }
     },
-    "Couldn't download any Pokémon. Please try again.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudo descargar ningún Pokémon. Inténtalo de nuevo."
+    "Disclaimer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aviso legal"
           }
         }
       }
     },
-    "Couldn't load card details": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudo cargar la carta"
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
           }
         }
       }
     },
-    "Couldn't load cards": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudieron cargar las cartas"
+    "Estimated value" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor estimado"
           }
         }
       }
     },
-    "Couldn't load the Pokédex": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudo cargar la Pokédex"
+    "Evolves from %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evoluciona de %@"
           }
         }
       }
     },
-    "Couldn't load type data. Try again": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudieron cargar los tipos. Reintentar"
+    "Expanded" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expandido"
           }
         }
       }
     },
-    "Damage taken from each attacking type, combining both of this Pokémon's types.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daño recibido de cada tipo atacante, combinando los dos tipos de este Pokémon."
+    "Explore" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar"
           }
         }
       }
     },
-    "Defense": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Defensa"
+    "Filter by name or set" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrar por nombre o expansión"
           }
         }
       }
     },
-    "Description": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Descripción"
+    "Find a card in Explore and tap + to add it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca una carta en Explorar y toca + para añadirla."
           }
         }
       }
     },
-    "Done": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Listo"
+    "HP %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PS %lld"
           }
         }
       }
     },
-    "Evolves from %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Evoluciona de %@"
+    "High" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alto"
           }
         }
       }
     },
-    "Expanded": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expandido"
+    "Illustrator" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilustrador"
           }
         }
       }
     },
-    "Filter by type": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Filtrar por tipo"
+    "Image not available yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imagen aún no disponible"
           }
         }
       }
     },
-    "Form": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forma"
+    "In your collection" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En tu colección"
           }
         }
       }
     },
-    "Front": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Frente"
+    "Legal" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legalidad"
           }
         }
       }
     },
-    "HP": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PS"
+    "Loading cards…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando cartas…"
           }
         }
       }
     },
-    "HP %lld": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PS %lld"
+    "Loading card…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando carta…"
           }
         }
       }
     },
-    "Height": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Altura"
+    "Loading sets…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando expansiones…"
           }
         }
       }
     },
-    "High": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alto"
+    "Low" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bajo"
           }
         }
       }
     },
-    "Illustrator": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ilustrador"
+    "Lower the quantity to zero to remove it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baja la cantidad a cero para quitarla."
           }
         }
       }
     },
-    "Image not available yet": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Imagen aún no disponible"
+    "Market" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mercado"
           }
         }
       }
     },
-    "Immune to": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inmune a"
+    "Mid" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medio"
           }
         }
       }
     },
-    "Legal": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Legalidad"
+    "Name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre"
           }
         }
       }
     },
-    "Load %lld more": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargar %lld más"
+    "No cards found" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron cartas"
           }
         }
       }
     },
-    "Loading Pokédex": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargando Pokédex"
+    "No price data available for this card yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay precios para esta carta."
           }
         }
       }
     },
-    "Loading cards…": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargando cartas…"
+    "Number" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Número"
           }
         }
       }
     },
-    "Loading card…": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargando carta…"
+    "OK" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
           }
         }
       }
     },
-    "Low": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bajo"
+    "Opens the image full screen" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre la imagen a pantalla completa"
           }
         }
       }
     },
-    "Market": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mercado"
+    "Options" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opciones"
           }
         }
       }
     },
-    "Mid": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Medio"
+    "Pokémon and all related names are trademarks of their respective owners. Card names, text and images are © their respective owners and are shown for identification only." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokémon y todos los nombres relacionados son marcas registradas de sus respectivos dueños. Los nombres, textos e imágenes de las cartas son © de sus respectivos dueños y se muestran solo para identificarlas."
           }
         }
       }
     },
-    "Name or number": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nombre o número"
+    "Price per card" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precio por carta"
           }
         }
       }
     },
-    "No %@ Pokémon": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No hay Pokémon %@"
+    "Price trend" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tendencia de precio"
           }
         }
       }
     },
-    "No cards found": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se encontraron cartas"
+    "Prices" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios"
           }
         }
       }
     },
-    "No price data available for this card yet.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aún no hay precios para esta carta."
+    "Prices are market estimates and may be out of date. They are not an offer to buy or sell." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los precios son estimaciones del mercado y pueden estar desactualizados. No son una oferta de compra ni de venta."
           }
         }
       }
     },
-    "Number": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Número"
+    "Prices are market estimates from TCGplayer or Cardmarket and may not match what you paid." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los precios son estimaciones de TCGplayer o Cardmarket y pueden no coincidir con lo que pagaste."
           }
         }
       }
     },
-    "Opens the image full screen": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre la imagen a pantalla completa"
+    "Prices from TCGplayer or Cardmarket, updated %@. Values are estimates." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios de TCGplayer o Cardmarket, actualizados %@. Los valores son estimaciones."
           }
         }
       }
     },
-    "Pokémon Info": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Info Pokémon"
+    "Privacy" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacidad"
           }
         }
       }
     },
-    "Price trend": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tendencia de precio"
+    "Profile" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
           }
         }
       }
     },
-    "Prices": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Precios"
+    "Quantity" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cantidad"
           }
         }
       }
     },
-    "Profile": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Perfil"
+    "Rarity" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rareza"
           }
         }
       }
     },
-    "Rarity": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rareza"
+    "Recently added" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadidas recientemente"
           }
         }
       }
     },
-    "Regulation mark": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Marca de regulación"
+    "Regulation mark" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marca de regulación"
           }
         }
       }
     },
-    "Resistance": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resistencia"
+    "Resistance" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resistencia"
           }
         }
       }
     },
-    "Resists": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resiste"
+    "Retreat" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirada"
           }
         }
       }
     },
-    "Retreat": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retirada"
+    "Search above to find a card in any set." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca arriba para encontrar una carta de cualquier expansión."
           }
         }
       }
     },
-    "Section": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sección"
+    "Search cards by name" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar cartas por nombre"
           }
         }
       }
     },
-    "Set": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expansión"
+    "Set" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expansión"
           }
         }
       }
     },
-    "Shiny": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shiny"
+    "Sets · newest first" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expansiones · más recientes primero"
           }
         }
       }
     },
-    "Showing %lld of %lld cards · newest first": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostrando %1$lld de %2$lld cartas · más recientes primero"
+    "Showing %lld of %lld cards" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrando %lld de %lld cartas"
           }
         }
       }
     },
-    "Sp. Atk": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "At. Esp."
+    "Some prices couldn't be updated" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron actualizar algunos precios"
           }
         }
       }
     },
-    "Sp. Def": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Def. Esp."
+    "Sort by" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar por"
           }
         }
       }
     },
-    "Speed": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Velocidad"
+    "Standard" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estándar"
           }
         }
       }
     },
-    "Sprites": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprites"
+    "TCGplayer prices" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precios en TCGplayer"
           }
         }
       }
     },
-    "Standard": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Estándar"
+    "Tap to zoom" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca para ampliar"
           }
         }
       }
     },
-    "Strong against": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fuerte contra"
+    "The request could not be built. Check Configuration.plist." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo crear la petición. Revisa Configuration.plist."
           }
         }
       }
     },
-    "TCGplayer prices": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Precios en TCGplayer"
+    "The server is having trouble (HTTP %lld). Please try again in a moment." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servidor tiene problemas (HTTP %lld). Inténtalo de nuevo en un momento."
           }
         }
       }
     },
-    "Tap to zoom": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toca para ampliar"
+    "The server sent data in an unexpected format." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servidor envió datos en un formato inesperado."
           }
         }
       }
     },
-    "The request could not be built. Check Configuration.plist.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudo crear la petición. Revisa Configuration.plist."
+    "This set has no cards listed yet." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta expansión aún no tiene cartas publicadas."
           }
         }
       }
     },
-    "The server is having trouble (HTTP %lld). Please try again in a moment.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "El servidor tiene problemas (HTTP %lld). Inténtalo de nuevo en un momento."
+    "Track your trading card collection and what it's worth." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lleva el control de tu colección de cartas y de cuánto vale."
           }
         }
       }
     },
-    "The server sent data in an unexpected format.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "El servidor envió datos en un formato inesperado."
+    "Trend" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tendencia"
           }
         }
       }
     },
-    "This Pokémon doesn't have any TCG cards yet.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Este Pokémon aún no tiene cartas del TCG."
+    "Try a different name." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba con otro nombre."
           }
         }
       }
     },
-    "Total": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total"
+    "Try again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
           }
         }
       }
     },
-    "Trend": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tendencia"
+    "Update prices" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar precios"
           }
         }
       }
     },
-    "Try again": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reintentar"
+    "Updated %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizado %@"
           }
         }
       }
     },
-    "Type": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo"
+    "Value" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valor"
           }
         }
       }
     },
-    "Type effectiveness": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efectividad de tipos"
+    "Variant" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Variante"
           }
         }
       }
     },
-    "Types": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipos"
+    "Version" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versión"
           }
         }
       }
     },
-    "Updated %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Actualizado %@"
+    "Weakness" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debilidad"
           }
         }
       }
     },
-    "Weak to": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Débil a"
+    "You appear to be offline. Check your connection and try again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que no tienes conexión. Revísala e inténtalo de nuevo."
           }
         }
       }
     },
-    "Weakness": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Debilidad"
+    "Your collection is empty" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu colección está vacía"
           }
         }
       }
     },
-    "Weight": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peso"
+    "Your collection is stored only on this device. The app has no accounts and collects no personal data." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu colección se guarda solo en este dispositivo. La app no tiene cuentas y no recopila datos personales."
           }
         }
       }
     },
-    "You appear to be offline. Check your connection and try again.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Parece que no tienes conexión. Revísala e inténtalo de nuevo."
+    "· %lld without price" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "· %lld sin precio"
           }
         }
       }
     },
-    "—": {
-      "shouldTranslate": false
+    "—" : {
+      "shouldTranslate" : false
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

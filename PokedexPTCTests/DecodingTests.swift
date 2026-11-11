@@ -5,7 +5,7 @@
 
 import Foundation
 import Testing
-@testable import PokedexPTC
+@testable import Binderly
 
 @Suite("TCGdex decoding")
 struct TCGDecodingTests {
@@ -79,48 +79,49 @@ struct TCGDecodingTests {
     }
 }
 
-@Suite("PokeAPI decoding")
-struct PokeAPIDecodingTests {
-    @Test("Alternate forms with null artwork decode and map to their species number")
-    func alternateForm() throws {
-        let pokemon = try Fixture.decode(PokemonDetail.self, """
-        {
-          "id": 10300, "name": "hawlucha-mega", "height": 10, "weight": 250, "order": -1, "is_default": false,
-          "species": { "name": "hawlucha", "url": "https://pokeapi.co/api/v2/pokemon-species/701/" },
-          "sprites": { "front_default": null, "other": { "official-artwork": { "front_default": null, "front_shiny": null } } },
-          "stats": [], "types": [{ "slot": 1, "type": { "name": "fighting", "url": "" } }]
-        }
+@Suite("Set decoding")
+struct SetDecodingTests {
+    @Test("Set list items include the card count")
+    func setBrief() throws {
+        let sets = try Fixture.decode([TCGSetBrief].self, """
+        [{ "id": "me06", "name": "Delta Reign", "logo": "x", "cardCount": { "total": 141, "official": 103 } },
+         { "id": "old", "name": "Old Set" }]
         """)
-        #expect(pokemon.isAlternateForm)
-        #expect(pokemon.nationalDexNumber == 701)
-        #expect(pokemon.artworkURL == nil)
-        #expect(pokemon.displayName == "Hawlucha Mega")
-        #expect(pokemon.weightInKilograms == 25)
-        #expect(pokemon.heightInMeters == 1)
+        #expect(sets.first?.cardCount?.total == 141)
+        #expect(sets.last?.cardCount == nil)
     }
 
-    @Test("PokemonInfo extracts the id from the url")
-    func pokemonInfoId() {
-        #expect(PokemonInfo(name: "pikachu", url: "https://pokeapi.co/api/v2/pokemon/25/").id == 25)
-        #expect(PokemonInfo(name: "broken", url: "https://pokeapi.co/api/v2/pokemon/").id == nil)
-    }
+    @Test("Set detail decodes its cards and tolerates a missing card list")
+    func setDetail() throws {
+        let set = try Fixture.decode(TCGSet.self, """
+        { "id": "me06", "name": "Delta Reign", "releaseDate": "2026-11-06",
+          "cards": [{ "id": "me06-001", "localId": "001", "name": "Heracross" }] }
+        """)
+        #expect(set.cards.map(\.id) == ["me06-001"])
+        #expect(set.releaseDate == "2026-11-06")
 
-    @Test("Disk cache encoding round-trips")
-    func roundTrip() throws {
-        let original = Fixture.pokemon(id: 25, name: "pikachu", types: ["electric"], speciesId: 25)
-        let decoded = try JSONDecoder().decode(PokemonDetail.self, from: JSONEncoder().encode(original))
-        #expect(decoded == original)
+        let empty = try Fixture.decode(TCGSet.self, #"{ "id": "x", "name": "X", "cards": "oops" }"#)
+        #expect(empty.cards.isEmpty)
     }
 }
 
 @Suite("API routes")
 struct APIRouteTests {
-    @Test func tcgdexRoutes() {
-        #expect(APIRoute.getCards(query: .dexId(25)).path == "v2/en/cards")
-        #expect(APIRoute.getCards(query: .dexId(25)).queryItems == [URLQueryItem(name: "dexId", value: "eq:25")])
-        #expect(APIRoute.getCards(query: .name("pikachu")).queryItems == [URLQueryItem(name: "name", value: "like:pikachu")])
+    @Test func paths() {
+        #expect(APIRoute.searchCards(name: "pikachu").path == "v2/en/cards")
+        #expect(APIRoute.searchCards(name: "pikachu").queryItems == [URLQueryItem(name: "name", value: "like:pikachu")])
         #expect(APIRoute.getCard(id: "me06-001").path == "v2/en/cards/me06-001")
-        #expect(APIRoute.getSets.host == .tcgdex)
-        #expect(APIRoute.getPokemonDetail(id: "1").host == .pokeApi)
+        #expect(APIRoute.getSets.path == "v2/en/sets")
+        #expect(APIRoute.getSet(id: "sv03.5").path == "v2/en/sets/sv03.5")
+    }
+
+    @Test("Requests use the configured base URL, or TCGdex by default")
+    func baseURL() {
+        let custom = APIInteractor(projectParameters: ["url_tcgdex": "https://example.com"], session: SessionMockedFail())
+        #expect(custom.urlRequest(for: .getSets)?.url?.absoluteString == "https://example.com/v2/en/sets")
+
+        let fallback = APIInteractor(projectParameters: [:], session: SessionMockedFail())
+        #expect(fallback.urlRequest(for: .searchCards(name: "mew"))?.url?.absoluteString
+                == "https://api.tcgdex.net/v2/en/cards?name=like:mew")
     }
 }
