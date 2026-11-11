@@ -11,7 +11,6 @@ struct ExploreView: View {
 
     @State private var query = ""
     @State private var results: Phase<[TCGCardBrief]> = .loading
-    @State private var visibleCount = CardGrid.pageSize
     @State private var sets: Phase<[TCGSetBrief]> = .loading
 
     private var searchKey: String? { CardCatalog.normalizedQuery(query) }
@@ -21,7 +20,6 @@ struct ExploreView: View {
             if searchKey != nil {
                 ScrollView {
                     CardGrid(phase: results,
-                             visibleCount: $visibleCount,
                              emptyMessage: "Check the spelling or try a shorter name.",
                              onRetry: { Task { await search() } })
                         .padding()
@@ -82,7 +80,6 @@ struct ExploreView: View {
     private func search() async {
         guard let searchKey else { return }
         results = .loading
-        visibleCount = CardGrid.pageSize
         do {
             let cards = try await catalog.search(name: searchKey)
             // Ignore late results if the query changed meanwhile.
@@ -126,12 +123,10 @@ struct SetCardsView: View {
     let catalog: CardCatalog
 
     @State private var phase: Phase<[TCGCardBrief]> = .loading
-    @State private var visibleCount = CardGrid.pageSize
 
     var body: some View {
         ScrollView {
             CardGrid(phase: phase,
-                     visibleCount: $visibleCount,
                      emptyMessage: "This set has no cards listed yet.",
                      showsSetName: false,
                      onRetry: { Task { await load() } })

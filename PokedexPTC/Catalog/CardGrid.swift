@@ -14,16 +14,16 @@ enum Phase<Value> {
     case failed(String)
 }
 
-/// Paged grid of cards. Each cell pushes `TCGCardBrief` onto the enclosing NavigationStack.
+/// Grid of cards. Each cell pushes `TCGCardBrief` onto the enclosing NavigationStack.
+/// `LazyVGrid` only builds the cells (and downloads the images) that scroll into view,
+/// so every card is listed at once without manual paging.
 struct CardGrid: View {
     let phase: Phase<[TCGCardBrief]>
-    @Binding var visibleCount: Int
     var emptyTitle: LocalizedStringKey = "No cards found"
     var emptyMessage: LocalizedStringKey = "Try a different name."
     var showsSetName = true
     let onRetry: () -> Void
 
-    static let pageSize = 30
     private let columns = [GridItem(.adaptive(minimum: 100, maximum: 180), spacing: 12, alignment: .top)]
 
     var body: some View {
@@ -56,27 +56,18 @@ struct CardGrid: View {
             }
 
         case .loaded(let cards):
-            let shown = min(visibleCount, cards.count)
             VStack(alignment: .leading, spacing: 12) {
-                Text("Showing \(shown) of \(cards.count) cards")
+                Text("\(cards.count) cards")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
 
                 LazyVGrid(columns: columns, spacing: 14) {
-                    ForEach(cards.prefix(shown)) { card in
+                    ForEach(cards) { card in
                         NavigationLink(value: card) {
                             TCGCardCell(card: card, showsSetName: showsSetName)
                         }
                         .buttonStyle(.plain)
                     }
-                }
-
-                if shown < cards.count {
-                    // Loads the next page when the end of the grid scrolls into view.
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .onAppear { visibleCount += Self.pageSize }
                 }
             }
         }
@@ -156,7 +147,7 @@ struct CardThumbnail: View {
 #Preview {
     NavigationStack {
         ScrollView {
-            CardGrid(phase: .loaded(PreviewData.cards), visibleCount: .constant(30), onRetry: {})
+            CardGrid(phase: .loaded(PreviewData.cards), onRetry: {})
                 .padding()
         }
     }
